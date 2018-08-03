@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import { scaleLinear } from 'd3-scale'
+import { scaleOrdinal } from 'd3-scale'
 import { interpolateLab } from 'd3-interpolate'
 
 export default class Bars extends Component {
   constructor(props) {
     super(props)
 
-    this.colorScale = scaleLinear()
-      .domain([0, this.props.maxValue])
-      .range(['#F3E5F5', '#7B1FA2'])
-      .interpolate(interpolateLab)
+    console.log('bars props')
+    console.log(this.props)
+
+    this.colorScale = scaleOrdinal()
+      .range(['steelblue', 'green']);
   }
 
   render() {
@@ -20,12 +21,12 @@ export default class Bars extends Component {
     const bars = (
       data.map(datum =>
         <rect
-          key={datum.title}
-          x={xScale(datum.title)}
-          y={yScale(datum.value)}
-          height={height - margins.bottom - scales.yScale(datum.value)}
+          key={datum.truckID}
+          x={xScale(datum.truckID)}
+          y={yScale(datum.minutes)}
+          height={height - margins.bottom - scales.yScale(datum.minutes)}
           width={xScale.bandwidth()}
-          fill={this.colorScale(datum.value)}
+          fill={this.colorScale(datum.commodity)}
         />,
       )
     )

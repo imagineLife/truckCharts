@@ -19,7 +19,7 @@ export default ({ scales, margins, svgDimensions }) => {
   }
 
   return (
-    <g>
+    <g className="axes">
       <Axis {...xProps} />
       <Axis {...yProps} />
     </g>

@@ -1,0 +1,119 @@
+[
+	{
+		"hour": 8,
+		"trucks": [
+			{
+				commodity: 'SB',
+				count: 3
+			},
+			{
+				commodity: 'YC',
+				count: 3
+			}
+		]
+	},
+	{
+		"hour": 9,
+		"trucks": [
+			{
+				commodity: 'SB',
+				count: 3
+			},
+			{
+				commodity: 'YC',
+				count: 3
+			}
+		]
+	},
+	{
+		"hour": 10,
+		"trucks": [
+			{
+				commodity: 'SB',
+				count: 4
+			},
+			{
+				commodity: 'YC',
+				count: 3
+			}
+		]
+	},
+	{
+		"hour": 11,
+		"trucks": [
+			{
+				commodity: 'SB',
+				count: 5
+			},
+			{
+				commodity: 'YC',
+				count: 3
+			}
+		]
+	},
+	{
+		"hour": 12,
+		"trucks": [
+			{
+				commodity: 'SB',
+				count: 5
+			},
+			{
+				commodity: 'YC',
+				count: 4
+			}
+		]
+	},
+	{
+		"hour": 13,
+		"trucks": [
+			{
+				commodity: 'SB',
+				count: 2
+			},
+			{
+				commodity: 'YC',
+				count: 4
+			}
+		]
+	},
+	{
+		"hour": 14,
+		"trucks": [
+			{
+				commodity: 'SB',
+				count: 2
+			},
+			{
+				commodity: 'YC',
+				count: 5
+			}
+		]
+	},
+	{
+		"hour": 15,
+		"trucks": [
+			{
+				commodity: 'SB',
+				count: 2
+			},
+			{
+				commodity: 'YC',
+				count: 8
+			}
+		]
+	},
+	{
+		"hour": 16,
+		"trucks": [
+			{
+				commodity: 'SB',
+				count: 3
+			},
+			{
+				commodity: 'YC',
+				count: 3
+			}
+		]
+	}
+]
