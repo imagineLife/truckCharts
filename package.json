@@ -26,14 +26,14 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "description": "Bad Ass chart built with React and D3 v4.",
+  "description": "chart built with React and D3 v4.",
   "keywords": [
     "React",
     "d3",
     "svg",
     "chart"
   ],
-  "author": "Kacper Golinski <kacper.golinski@gmail.com>",
-  "license": "MIT",
-  "homepage": "https://caspg.github.io/badass-chart"
+  "author": "Jake",
+  "license": "",
+  "homepage": "https://github.com/imagineLife/truckCharts"
 }
