@@ -14,8 +14,8 @@ export default ChartComponent => (
     }
 
     componentDidMount() {
-      this.fitParentContainer()
       window.addEventListener('resize', this.fitParentContainer)
+      this.fitParentContainer()
     }
 
     componentWillUnmount() {
@@ -23,10 +23,11 @@ export default ChartComponent => (
     }
 
     fitParentContainer() {
+    	console.log('RUNNING fitPC')
       const { containerWidth} = this.state
-      const currentContainerWidth = this.chartContainer.getBoundingClientRect().width
-      const currentContainerHeight = this.chartContainer.getBoundingClientRect().height
-      // console.log('Parent width: ' + this.refs.chartContainer.parentNode.clientHeight);
+      const currentContainerWidth = this.refs.respWrapperRef.getBoundingClientRect().width
+      const currentContainerHeight = this.refs.respWrapperRef.getBoundingClientRect().height
+      // console.log('Parent width: ' + this.refs.respWrapperRef.parentNode.clientHeight);
 
         console.log('currentContainerWidth')
         console.log(currentContainerWidth)
@@ -47,12 +48,13 @@ export default ChartComponent => (
     renderChart() {
       const parentWidth = this.state.containerWidth
       const parentHeight = this.state.containerHeight
+      // if(parentHeight === 0){ this.fitParentContainer()}
 
       console.log('render parentHeight')
       console.log(parentHeight)
 
       return (
-        <ChartComponent {...this.props} parentWidth={parentWidth} />
+        <ChartComponent {...this.props} fpc={() => this.fitParentContainer()} parentWidth={parentWidth} />
       )
     }
 
@@ -62,7 +64,7 @@ export default ChartComponent => (
 
       return (
         <div
-          ref={(el) => { this.chartContainer = el }}
+          ref='respWrapperRef'
           className="Responsive-wrapper"
         >
           {shouldRenderChart && this.renderChart()}

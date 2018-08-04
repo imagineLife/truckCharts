@@ -10,7 +10,7 @@ import ResponsiveWrapper from '../ResponsiveWrapper'
 class Chart extends Component {
   constructor() {
     super()
-    this.xScale = scaleBand()
+    this.xScale = scaleBand().padding(0.5)
     this.yScale = scaleLinear()
   }
 
@@ -22,14 +22,13 @@ class Chart extends Component {
     //set svg dimensions
     const svgDimensions = {
       width: Math.max(this.props.parentWidth, 300),
-      height: 500
+      height: 600
     }
 
     //max value from data
     const maxDataValue = Math.max(...data.map(d => d.minutes))
 
     const xScale = this.xScale
-      .padding(0.5)
       .domain(data.map(d => d.truckID))
       .range([margins.left, svgDimensions.width - margins.right])
 
@@ -46,6 +45,7 @@ class Chart extends Component {
       <svg 
         width={svgDimensions.width}
         height={svgDimensions.height}
+        style={{border: '1px solid blue'}}
       >
         <AxesAndMath
           scales={{ xScale, yScale }}
