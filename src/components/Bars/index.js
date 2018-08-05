@@ -22,9 +22,9 @@ export default class Bars extends Component {
           y={yScale(datum.truckCount)}
           height={height - margins.bottom - scales.yScale(datum.truckCount)}
           width={xScale.bandwidth()}
-          // fill={this.colorScale(datum.commodity)}
+          fill={this.colorScale(datum.commodity)}
           stroke={'gray'}
-          fill={'rgba(255,255,255,.5)'}
+          // fill={'rgba(255,255,255,.5)'}
         />,
       )
     )
