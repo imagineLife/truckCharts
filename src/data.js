@@ -1,37 +1,37 @@
 export default [
   {
-    "truckID": 212,
-    "minutes": 45,
+    "hour": '9:00',
+    "truckCount": 12,
     "commodity": "YC"
   },
   {
-    "truckID": 341,
-    "minutes": 40,
+    "hour": '10:00',
+    "truckCount": 13,
     "commodity": "YC"
   },
   {
-    "truckID": 195,
-    "minutes": 52,
+    "hour": '11:00',
+    "truckCount": 14,
     "commodity": "SB"
   },
   {
-    "truckID": 429,
-    "minutes": 35,
+    "hour": '1:00',
+    "truckCount": 15,
     "commodity": "YC"
   },  
   {
-    "truckID": 312,
-    "minutes": 55,
+    "hour": '2:00',
+    "truckCount": 14,
     "commodity": "SB"
   },
   {
-    "truckID": 276,
-    "minutes": 41,
+    "hour": '3:00',
+    "truckCount": 13,
     "commodity": "YC"
   },
   {
-    "truckID": 101,
-    "minutes": 52,
+    "hour": '4:00',
+    "truckCount": 12,
     "commodity": "SB"
   }
 ]

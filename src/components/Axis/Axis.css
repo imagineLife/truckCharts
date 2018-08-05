@@ -3,8 +3,8 @@
   stroke: #E0E0E0;
 }
 
-.Axis text {
-  font-size: 11px;
+.Axis text, .Axis-Bottom text {
+  font-size: 15px;
   fill: black;
 }
 

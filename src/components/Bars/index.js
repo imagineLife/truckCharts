@@ -17,12 +17,14 @@ export default class Bars extends Component {
     const bars = (
       data.map(datum =>
         <rect
-          key={datum.truckID}
-          x={xScale(datum.truckID)}
-          y={yScale(datum.minutes)}
-          height={height - margins.bottom - scales.yScale(datum.minutes)}
+          key={datum.hour}
+          x={xScale(datum.hour)}
+          y={yScale(datum.truckCount)}
+          height={height - margins.bottom - scales.yScale(datum.truckCount)}
           width={xScale.bandwidth()}
-          fill={this.colorScale(datum.commodity)}
+          // fill={this.colorScale(datum.commodity)}
+          stroke={'gray'}
+          fill={'rgba(255,255,255,.5)'}
         />,
       )
     )
