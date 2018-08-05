@@ -7,8 +7,8 @@ export default class Line extends Component {
     super(props)
 
     this.state = {
-      xValue : d => d.truckID,
-      yValue : d => +d.minutes
+      xValue : d => d.hour,
+      yValue : d => +d.truckCount
     }
   }
 
@@ -34,7 +34,7 @@ export default class Line extends Component {
       <path
         fill={'none'}
         stroke={'khaki'}
-        strokeWidth={4}
+        strokeWidth={8}
         className={'path'}
         d={thisLineObj}
       />
