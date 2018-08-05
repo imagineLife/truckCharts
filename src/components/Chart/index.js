@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { scaleBand, scaleLinear } from 'd3-scale'
 
 import data from '../../data'
-// import yesterdayData from '../../dataYesterday'
+import yesterdayData from '../../dataYesterday'
 import AxisLabel from '../AxisLabel'
 import AxesAndMath from '../Axes'
 import Bars from '../Bars'
-// import Line from '../Line'
+import Line from '../Line'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 
 class Chart extends Component {
@@ -106,6 +106,14 @@ class Chart extends Component {
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
         />
+
+        <Line
+          scales={{ xScale, yScale }}
+          margins={this.state.margins}
+          data={yesterdayData}
+          maxValue={maxDataValue}
+          svgDimensions={svgDimensions}
+        /> 
 
         {axisLabels}
 
