@@ -6,8 +6,7 @@ export default ChartComponent => (
       super(props)
 
       this.state = {
-        containerWidth: null,
-        containerHeight: null,
+        containerWidth: null
       }
 
       this.fitParentContainer = this.fitParentContainer.bind(this)
@@ -25,7 +24,7 @@ export default ChartComponent => (
     fitParentContainer() {
       const { containerWidth} = this.state
       const currentContainerWidth = this.refs.respWrapperRef.getBoundingClientRect().width
-      const currentContainerHeight = this.refs.respWrapperRef.getBoundingClientRect().height
+      // const currentContainerHeight = this.refs.respWrapperRef.getBoundingClientRect().height
       // console.log('Parent width: ' + this.refs.respWrapperRef.parentNode.clientHeight);
 
       const shouldResize = containerWidth !== currentContainerWidth
@@ -33,14 +32,14 @@ export default ChartComponent => (
       if (shouldResize) {
         this.setState({
           containerWidth: currentContainerWidth,
-          containerHeight: currentContainerHeight,
+          // containerHeight: currentContainerHeight,
         })
       }
     }
 
     renderChart() {
       const parentWidth = this.state.containerWidth
-      const parentHeight = this.state.containerHeight
+      // const parentHeight = this.state.containerHeight
       // if(parentHeight === 0){ this.fitParentContainer()}
 
       return (

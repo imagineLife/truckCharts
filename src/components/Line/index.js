@@ -23,11 +23,6 @@ export default class Line extends Component {
       .y(d => yScale( this.state.yValue(d) ))
       // .curve(d3.curveBasis)
 
-      
-
-    console.log('line data')
-    console.log(data)
-
     let thisLineObj = lineObj(data)
 
     const thisLine = (

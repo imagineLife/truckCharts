@@ -15,14 +15,14 @@ export default class Bars extends Component {
     const { height } = svgDimensions
 
     const bars = (
-      data.map(datum =>
+      data.map(barData =>
         <rect
-          key={datum.hour}
-          x={xScale(datum.hour)}
-          y={yScale(datum.truckCount)}
-          height={height - margins.bottom - scales.yScale(datum.truckCount)}
+          key={barData.hour}
+          x={xScale(barData.hour)}
+          y={yScale(barData.truckCount)}
+          height={height - margins.bottom - scales.yScale(barData.truckCount)}
           width={xScale.bandwidth()}
-          fill={this.colorScale(datum.commodity)}
+          fill={this.colorScale(barData.commodity)}
           stroke={'gray'}
           // fill={'rgba(255,255,255,.5)'}
         />,
