@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import { scaleBand, scaleLinear } from 'd3-scale'
 
 import data from '../../minutesPerTruck'
-import yesterdayData from '../../dataYesterday'
 import AxisLabel from '../AxisLabel'
 import AxesAndMath from '../Axes'
 import Bars from '../Bars'
-import Line from '../Line'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import './style.css';
 
@@ -98,6 +96,13 @@ class TrucksPerHourChart extends Component {
         transformation={each.transformation}
       />
     })
+
+    let thisStyleObj = {
+      'width': svgDimensions.width,
+      'height' : svgDimensions.height,
+      'marginTop': '125px',
+      'class': 'trucksPerHourSVG'
+    }
     //return
     //SVG
     //  AxesAndMath Component
@@ -107,7 +112,7 @@ class TrucksPerHourChart extends Component {
         className="trucksPerHourSVG"
         width={svgDimensions.width}
         height={svgDimensions.height}
-        style={{'margin-bottom': '75px'}} >
+        style={thisStyleObj} >
 
         <AxesAndMath
           scales={{ xScale, yScale }}
@@ -122,14 +127,6 @@ class TrucksPerHourChart extends Component {
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
         />
-
-        <Line
-          scales={{ xScale, yScale }}
-          margins={this.state.margins}
-          data={yesterdayData}
-          maxValue={maxDataValue}
-          svgDimensions={svgDimensions}
-        /> 
 
         {axisLabels}
 
