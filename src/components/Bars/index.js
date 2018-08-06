@@ -16,19 +16,26 @@ export default class Bars extends Component {
 
     const bars = (
       data.map(barData => {
-          console.log('barData')
-          console.log(barData)
           if(barData.hour){
+
+            let thisTruckData = barData.trucks;
+            let totalTruckCountThisHour = 0;
+            thisTruckData.map((t) => {
+              return totalTruckCountThisHour += t.truckCount;
+            })
+
+
             return <rect
               key={barData.hour}
               x={xScale(barData.hour)}
-              y={yScale(barData.truckCount)}
-              height={height - margins.bottom - scales.yScale(barData.truckCount)}
-              width={xScale.bandwidth()}
+              y={yScale(totalTruckCountThisHour)}
+              height={height - margins.bottom - scales.yScale(totalTruckCountThisHour)}
+              width={xScale.bandwidth() * .75}
               fill={'rgba(255,255,255,.5)'}
               stroke={'gray'}
               // fill={'rgba(255,255,255,.5)'}
             />
+            
           }else{
             return <rect
               key={barData.truckID}
