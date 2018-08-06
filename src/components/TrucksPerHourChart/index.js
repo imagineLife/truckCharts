@@ -7,6 +7,7 @@ import AxisLabel from '../AxisLabel'
 import AxesAndMath from '../Axes'
 import Bars from '../Bars'
 import Line from '../Line'
+import AlertLine from '../AlertLine'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import './style.css';
 
@@ -38,10 +39,10 @@ class TrucksPerHourChart extends Component {
           textClass : 'chartTitle',
           gWrapperClass : 'chartTitleG',
           transformation: ''
-        },
-
+        }
       ],
-      margins : { top: 75, right: 20, bottom: 100, left: 60 }
+      margins : { top: 75, right: 20, bottom: 100, left: 60 },
+      alertLevel: 10
     }
   }
 
@@ -75,8 +76,21 @@ class TrucksPerHourChart extends Component {
       height: 550
     }
 
+
+    //Get max truck-count values from data
+    const truckCountsFromData = [];
+    data.map((d,i) => {
+      let theseTrucks = d.trucks;
+      let thisTruckTotal = 0;
+      return theseTrucks.forEach((t) => {
+        thisTruckTotal += t.truckCount;
+        let thisObj = {ind: i, thisTotal: thisTruckTotal}
+        truckCountsFromData.push(thisObj)
+
+      })
+    })
     //max value from data
-    const maxDataValue = Math.max(...data.map(d => d.truckCount))
+    const maxDataValue = Math.max(...truckCountsFromData.map(d => d.thisTotal))
 
     const xScale = this.xScale
       .domain(data.map(d => d.hour))
@@ -98,16 +112,19 @@ class TrucksPerHourChart extends Component {
         transformation={each.transformation}
       />
     })
+
+    let thisStyleObj = {
+      'width': svgDimensions.width,
+      'height' : svgDimensions.height,
+      'class': 'trucksPerHourSVG'
+    }
     //return
     //SVG
     //  AxesAndMath Component
     //  BARS component
     return (
       <svg 
-        className="trucksPerHourSVG"
-        width={svgDimensions.width}
-        height={svgDimensions.height}
-        style={{'margin-bottom': '75px'}} >
+        style={thisStyleObj} >
 
         <AxesAndMath
           scales={{ xScale, yScale }}
@@ -129,7 +146,14 @@ class TrucksPerHourChart extends Component {
           data={yesterdayData}
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
-        /> 
+        />
+
+        <AlertLine
+          scales={{ xScale, yScale }}
+          margins={this.state.margins}
+          data={this.state.alertLevel}
+          svgDimensions={svgDimensions}
+        />
 
         {axisLabels}
 
