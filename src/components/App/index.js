@@ -1,9 +1,11 @@
 import React from 'react'
 
 import './App.css'
-import Chart from '../Chart'
+import TrucksPerHourChart from '../TrucksPerHourChart'
+import TruckTimeInFacilityChart from '../TruckTimeInFacilityChart'
 
 export default () =>
   <div className="App">
-      <Chart />
+      <TrucksPerHourChart />
+      <TruckTimeInFacilityChart />
   </div>

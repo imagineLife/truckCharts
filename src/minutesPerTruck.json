@@ -33,5 +33,25 @@
 		"truckID": 101,
 		"minutes": 52,
 		"commodity": "SB"
+	},
+	{
+		"truckID": 876,
+		"minutes": 35,
+		"commodity": "YC"
+	},	
+	{
+		"truckID": 530,
+		"minutes": 62,
+		"commodity": "SB"
+	},
+	{
+		"truckID": 987,
+		"minutes": 44,
+		"commodity": "YC"
+	},
+	{
+		"truckID": 653,
+		"minutes": 58,
+		"commodity": "SB"
 	}
 ]

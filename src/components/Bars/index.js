@@ -15,17 +15,33 @@ export default class Bars extends Component {
     const { height } = svgDimensions
 
     const bars = (
-      data.map(barData =>
-        <rect
-          key={barData.hour}
-          x={xScale(barData.hour)}
-          y={yScale(barData.truckCount)}
-          height={height - margins.bottom - scales.yScale(barData.truckCount)}
-          width={xScale.bandwidth()}
-          fill={this.colorScale(barData.commodity)}
-          stroke={'gray'}
-          // fill={'rgba(255,255,255,.5)'}
-        />,
+      data.map(barData => {
+          console.log('barData')
+          console.log(barData)
+          if(barData.hour){
+            return <rect
+              key={barData.hour}
+              x={xScale(barData.hour)}
+              y={yScale(barData.truckCount)}
+              height={height - margins.bottom - scales.yScale(barData.truckCount)}
+              width={xScale.bandwidth()}
+              fill={'rgba(255,255,255,.5)'}
+              stroke={'gray'}
+              // fill={'rgba(255,255,255,.5)'}
+            />
+          }else{
+            return <rect
+              key={barData.truckID}
+              x={xScale(barData.truckID)}
+              y={yScale(barData.minutes)}
+              height={height - margins.bottom - scales.yScale(barData.minutes)}
+              width={xScale.bandwidth()}
+              fill={this.colorScale(barData.commodity)}
+              stroke={'gray'}
+              // fill={'rgba(255,255,255,.5)'}
+            />
+          }
+        }
       )
     )
 

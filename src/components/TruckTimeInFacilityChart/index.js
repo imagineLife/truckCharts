@@ -1,42 +1,55 @@
 import React, { Component } from 'react'
 import { scaleBand, scaleLinear } from 'd3-scale'
 
-import data from '../../data'
+import data from '../../minutesPerTruck'
 import yesterdayData from '../../dataYesterday'
 import AxisLabel from '../AxisLabel'
 import AxesAndMath from '../Axes'
 import Bars from '../Bars'
 import Line from '../Line'
 import ResponsiveWrapper from '../ResponsiveWrapper'
+import './style.css';
 
-class Chart extends Component {
+class TrucksPerHourChart extends Component {
   constructor() {
     super()
-    this.xScale = scaleBand().padding(0.5)
+    this.xScale = scaleBand().padding(0.2)
     this.yScale = scaleLinear()
     this.calcXPos = this.calcXPos.bind(this)
     this.state = {
       labels: [
         { 
-          text : 'Time Of Day',
+          type:'x',
+          text : 'Truck ID',
           textClass : 'xAxisLabelText',
           gWrapperClass : 'xAxisLabelG',
           transformation: ''
         }, 
         {
-          text : 'Number Of Trucks',
+          type: 'y',
+          text : 'Minutes In Facility',
           textClass : 'yAxisLabelText',
           gWrapperClass : 'yAxisLabelG',
           transformation: 'rotate(-90)'
-        }
+        },
+        {
+          type: 'chartTitle',
+          text : 'Minutes In the Facility Per Truck',
+          textClass : 'chartTitle',
+          gWrapperClass : 'chartTitleG',
+          transformation: ''
+        },
+
       ],
-      margins : { top: 50, right: 20, bottom: 100, left: 60 }
+      margins : { top: 75, right: 20, bottom: 100, left: 60 }
     }
   }
 
   calcXPos(string, dims){
     if(string.indexOf('y') > -1){
       return -(dims.height / 2)
+    }else if(string.indexOf('c') > -1){
+      return (dims.width / 2)
     }else{
       return ( dims.width / 2)
     }
@@ -45,7 +58,9 @@ class Chart extends Component {
 
   calcYPos(string, dims){
     if(string.indexOf('y') > -1){
-      return dims.width * .025
+      return dims.width * .02
+    }else if(string.indexOf('c') > -1){
+      return (dims.height * .05)
     }else{
       return dims.height - 25
     }
@@ -57,14 +72,14 @@ class Chart extends Component {
     //set svg dimensions
     const svgDimensions = {
       width: Math.max(this.props.parentWidth, 300),
-      height: 600
+      height: 550
     }
 
     //max value from data
-    const maxDataValue = Math.max(...data.map(d => d.truckCount))
+    const maxDataValue = Math.max(...data.map(d => d.minutes))
 
     const xScale = this.xScale
-      .domain(data.map(d => d.hour))
+      .domain(data.map(d => d.truckID))
       .range([this.state.margins.left, svgDimensions.width - this.state.margins.right])
 
     const yScale = this.yScale
@@ -75,8 +90,8 @@ class Chart extends Component {
 
       return <AxisLabel
         key={each.text}
-        xPos={this.calcXPos(each.textClass, svgDimensions)}
-        yPos={this.calcYPos(each.textClass, svgDimensions)}
+        xPos={this.calcXPos(each.type, svgDimensions)}
+        yPos={this.calcYPos(each.type, svgDimensions)}
         labelClass={each.textClass}
         groupClass={each.gWrapperClass}
         textVal={each.text}
@@ -89,9 +104,10 @@ class Chart extends Component {
     //  BARS component
     return (
       <svg 
+        className="trucksPerHourSVG"
         width={svgDimensions.width}
         height={svgDimensions.height}
-        style={{border: '1px solid blue'}} >
+        style={{'margin-bottom': '75px'}} >
 
         <AxesAndMath
           scales={{ xScale, yScale }}
@@ -122,4 +138,4 @@ class Chart extends Component {
   }
 }
 
-export default ResponsiveWrapper(Chart)
+export default ResponsiveWrapper(TrucksPerHourChart)
