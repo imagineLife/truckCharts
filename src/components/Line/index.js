@@ -13,10 +13,9 @@ export default class Line extends Component {
   }
 
   render() {
-    const { scales, data, svgDimensions, margins } = this.props //
+    const { scales, data } = this.props //
     const { xScale, yScale } = scales
     // const { height } = svgDimensions
-
 
     let lineObj = d3.line()
       .x(d => xScale( this.state.xValue(d) ) + ( xScale.bandwidth() * .5) )
