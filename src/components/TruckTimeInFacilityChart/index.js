@@ -6,6 +6,7 @@ import AxisLabel from '../AxisLabel'
 import AxesAndMath from '../Axes'
 import Bars from '../Bars'
 import ResponsiveWrapper from '../ResponsiveWrapper'
+import AlertLine from '../AlertLine'
 import './style.css';
 
 class TrucksPerHourChart extends Component {
@@ -37,9 +38,9 @@ class TrucksPerHourChart extends Component {
           gWrapperClass : 'chartTitleG',
           transformation: ''
         },
-
       ],
-      margins : { top: 75, right: 20, bottom: 100, left: 60 }
+      margins : { top: 75, right: 20, bottom: 100, left: 60 },
+      alertLevel: 45
     }
   }
 
@@ -103,10 +104,14 @@ class TrucksPerHourChart extends Component {
       'marginTop': '125px',
       'class': 'trucksPerHourSVG'
     }
-    //return
-    //SVG
-    //  AxesAndMath Component
-    //  BARS component
+
+    //Alert line values
+    let lineVals = {
+      x1: 212,
+      x2: 653,
+      y: this.state.alertLevel
+    };
+
     return (
       <svg 
         className="trucksPerHourSVG"
@@ -128,6 +133,12 @@ class TrucksPerHourChart extends Component {
           svgDimensions={svgDimensions}
         />
 
+        <AlertLine
+          scales={{ xScale, yScale }}
+          margins={this.state.margins}
+          lineVals={lineVals}
+          svgDimensions={svgDimensions}
+        />
         {axisLabels}
 
       </svg>

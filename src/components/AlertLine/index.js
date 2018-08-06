@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 
-export default class Line extends Component {
+export default class AlertLine extends Component {
 
   render() {
-    const { scales, data } = this.props //
+    const { scales, lineVals } = this.props //
     const { xScale, yScale } = scales
 
+    console.log('lineVals')
+    console.log(lineVals)
     const thisLine = (
       <line
         fill={'none'}
@@ -13,10 +15,10 @@ export default class Line extends Component {
         strokeDasharray={'4 0 4'}
         strokeWidth={4}
         className={'alertLine'}
-        x1={xScale("9:00")}
-        x2={xScale("4:00")+ xScale.bandwidth()}
-        y1={yScale(data)}
-        y2={yScale(data)}        
+        x1={xScale(lineVals.x1)}
+        x2={xScale(lineVals.x2)+ ( xScale.bandwidth() * .75 ) }
+        y1={yScale(lineVals.y)}
+        y2={yScale(lineVals.y)}        
       />
     )
 

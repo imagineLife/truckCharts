@@ -89,6 +89,7 @@ class TrucksPerHourChart extends Component {
 
       })
     })
+
     //max value from data
     const maxDataValue = Math.max(...truckCountsFromData.map(d => d.thisTotal))
 
@@ -118,10 +119,14 @@ class TrucksPerHourChart extends Component {
       'height' : svgDimensions.height,
       'class': 'trucksPerHourSVG'
     }
-    //return
-    //SVG
-    //  AxesAndMath Component
-    //  BARS component
+
+    //Alert line values
+    let lineVals = {
+      x1: '9:00',
+      x2: '4:00',
+      y: this.state.alertLevel
+    };
+
     return (
       <svg 
         style={thisStyleObj} >
@@ -151,7 +156,7 @@ class TrucksPerHourChart extends Component {
         <AlertLine
           scales={{ xScale, yScale }}
           margins={this.state.margins}
-          data={this.state.alertLevel}
+          lineVals={lineVals}
           svgDimensions={svgDimensions}
         />
 
