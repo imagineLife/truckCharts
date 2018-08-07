@@ -8,8 +8,9 @@ import Bars from '../Bars'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import AlertLine from '../AlertLine'
 import './style.css';
+import { connect } from 'react-redux';
 
-class TrucksPerHourChart extends Component {
+class FacilityMinutesChart extends Component {
   constructor() {
     super()
     this.xScale = scaleBand().padding(0.2)
@@ -66,6 +67,16 @@ class TrucksPerHourChart extends Component {
 
   }
 
+  //IF the alert line was set in settings, update chart
+  componentDidMount(){
+    let curPropsmpfLimit = this.props.storeVals.mpfLimit;
+    let curAlertLevel = this.state.alertLevel;
+    if(curAlertLevel !== curPropsmpfLimit && curPropsmpfLimit){
+       this.setState({alertLevel: curPropsmpfLimit})
+    }
+
+  }
+
   render() {
     
     //set svg dimensions
@@ -82,7 +93,7 @@ class TrucksPerHourChart extends Component {
       .range([this.state.margins.left, svgDimensions.width - this.state.margins.right])
 
     const yScale = this.yScale
-      .domain([0, maxDataValue])
+      .domain([0, maxDataValue*1.1])
       .range([svgDimensions.height - this.state.margins.bottom, this.state.margins.top])
 
     const axisLabels = this.state.labels.map((each) => {
@@ -146,4 +157,6 @@ class TrucksPerHourChart extends Component {
   }
 }
 
-export default ResponsiveWrapper(TrucksPerHourChart)
+const mapStateToProps = state => ({ storeVals: state })
+
+export default ResponsiveWrapper(connect(mapStateToProps)(FacilityMinutesChart))
