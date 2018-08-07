@@ -27,7 +27,7 @@ export default class Bars extends Component {
 
             return <rect
               key={barData.hour}
-              x={xScale(barData.hour)}
+              x={xScale(barData.hour) + (xScale.bandwidth() * .1)}
               y={yScale(totalTruckCountThisHour)}
               height={height - margins.bottom - scales.yScale(totalTruckCountThisHour)}
               width={xScale.bandwidth() * .75}
