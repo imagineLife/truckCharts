@@ -42,7 +42,8 @@ class TrucksPerHourChart extends Component {
         }
       ],
       margins : { top: 75, right: 20, bottom: 100, left: 60 },
-      alertLevel: 10
+      alertLevel: 10,
+      todaysTruckData: data
     }
   }
 
