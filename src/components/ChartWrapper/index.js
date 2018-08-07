@@ -13,6 +13,7 @@ export default class ChartWrapper extends React.Component {
   			<div className="headerSpacer"></div>
 			<TrucksPerHourChart />
 			<TruckTimeInFacilityChart />
+			<div className="footerSpacer"></div>
 		</div>
   	);
   
