@@ -1,18 +1,14 @@
 import {createStore} from 'redux';
 
-const initialState = {
-	thereis: 'noStateYet'
-}
+const initialState = {};
 
-const chartAlertsReducer = (state=initialState, action){
+const chartAlertsReducer = function(state=initialState, action){
 	if(action.type === 'updateAlertLevels'){
-		state = Object.assign({}, {alertLeves: action.payload })
+		state = Object.assign({}, {tphLimit: action.payload.tphLimit, mpfLimit: action.payload.mpfLimit })
 	}
 	return state;
 }
 
-let chartStore = createStore(chartAlertsReducer);
-
-chartStore.subscribe(() => 'redux store changing', chartStore.getState())
+let chartStore = createStore(chartAlertsReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 export default chartStore;
