@@ -27,8 +27,6 @@ ul li.liWithIcon{
   display:inline-block;
   width:50%;
   text-align: center;
-  line-height: 45px;
-  height:45px; 
   cursor: pointer;
 }
 
