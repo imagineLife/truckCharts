@@ -8,6 +8,7 @@ import {
 import './App.css';
 import Nav from '../Nav';
 import ChartWrapper from '../ChartWrapper';
+import Settings from '../Settings';
 
 export default class App extends React.Component {
 
@@ -18,7 +19,7 @@ export default class App extends React.Component {
 		  	<div className="App">
 		      <Nav />
 		      <Switch>
-			    <Route exact path="/settings" component={ChartWrapper} />
+			    <Route exact path="/settings" component={Settings} />
           <Route exact path="/charts" component={ChartWrapper} />
           <Redirect from="/*" to="/charts" />
 		  	  </Switch>
