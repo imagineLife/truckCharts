@@ -55,7 +55,7 @@ export default [
     "hour": '2:00',
     "trucks":[
       {
-        "truckCount": 12,
+        "truckCount": 11,
         "commodity": "YC"
       },
       {
