@@ -60,9 +60,25 @@ div[class*="col-"], section[class*="col-"] {
 /* Non-mobile, grid */
 
 @media only screen and (min-width: 435px) {
+  
   .request-form input[type='radio']{
     margin-top: 0px;
   }
+
+  nav ul li a .menuLabel{
+    display: inline;
+  }
+
+  .icon{
+    display: none;
+  }
+
+  nav{
+    bottom: auto;
+    background-color: rgba(0,0,0,.8);
+    top: 0;
+  }
+
 }
 @media only screen and (min-width: 768px) {
   /*
@@ -146,19 +162,6 @@ div[class*="col-"], section[class*="col-"] {
 
   .begin-form{
     margin: 50% 0;
-  }
-
-  nav ul li a .menuLabel{
-    display: inline;
-  }
-
-  nav ul li a .icon{
-    display: none;
-  }
-
-  nav{
-    bottom: auto;
-    background-color: rgba(0,0,0,.8);
   }
 
 }
