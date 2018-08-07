@@ -10,10 +10,10 @@ export default class ChartWrapper extends React.Component {
 
   	return (
   		<div className="chartWrapper">
-  			<div className="headerSpacer"></div>
-			<TrucksPerHourChart />
-			<TruckTimeInFacilityChart />
-			<div className="footerSpacer"></div>
+    		<div className="headerSpacer"></div>
+  			<TrucksPerHourChart />
+  			<TruckTimeInFacilityChart />
+  			<div className="footerSpacer"></div>
 		</div>
   	);
   
