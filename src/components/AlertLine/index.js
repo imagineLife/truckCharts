@@ -6,8 +6,6 @@ export default class AlertLine extends Component {
     const { scales, lineVals } = this.props //
     const { xScale, yScale } = scales
 
-    console.log('lineVals')
-    console.log(lineVals)
     const thisLine = (
       <line
         fill={'none'}

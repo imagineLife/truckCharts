@@ -1,11 +1,28 @@
-import React from 'react'
+import React from 'react';
+import {
+    BrowserRouter as Router,
+    Route,
+    // Redirect,
+    Switch
+} from 'react-router-dom';
+import './App.css';
+import Nav from '../Nav';
+import ChartWrapper from '../ChartWrapper';
 
-import './App.css'
-import TrucksPerHourChart from '../TrucksPerHourChart'
-import TruckTimeInFacilityChart from '../TruckTimeInFacilityChart'
+export default class App extends React.Component {
 
-export default () =>
-  <div className="App">
-      <TrucksPerHourChart />
-      <TruckTimeInFacilityChart />
-  </div>
+  render(){
+
+  	return (
+  		<Router>
+		  	<div className="App">
+		      <Nav />
+		      <Switch>
+			    <Route exact path="/settings" component={ChartWrapper} />
+			    <Route exact path="/charts" component={ChartWrapper} />
+		  	  </Switch>
+		  	</div>
+	  	</Router>
+  	);
+  }
+}
