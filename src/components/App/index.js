@@ -2,7 +2,7 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Route,
-    // Redirect,
+    Redirect,
     Switch
 } from 'react-router-dom';
 import './App.css';
@@ -19,7 +19,8 @@ export default class App extends React.Component {
 		      <Nav />
 		      <Switch>
 			    <Route exact path="/settings" component={ChartWrapper} />
-			    <Route exact path="/charts" component={ChartWrapper} />
+          <Route exact path="/charts" component={ChartWrapper} />
+          <Redirect from="/*" to="/charts" />
 		  	  </Switch>
 		  	</div>
 	  	</Router>
