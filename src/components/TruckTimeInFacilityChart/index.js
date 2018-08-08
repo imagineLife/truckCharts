@@ -9,6 +9,7 @@ import ResponsiveWrapper from '../ResponsiveWrapper'
 import AlertLine from '../AlertLine'
 import './style.css';
 import { connect } from 'react-redux';
+import alertImageImport from '../../imgs/alert.ico'
 
 class FacilityMinutesChart extends Component {
   constructor() {
@@ -43,6 +44,8 @@ class FacilityMinutesChart extends Component {
       margins : { top: 75, right: 20, bottom: 100, left: 60 },
       alertLevel: 45
     }
+
+    this.calculateAlertStatus = this.calculateAlertStatus.bind(this);    
   }
 
   calcXPos(string, dims){
@@ -67,18 +70,46 @@ class FacilityMinutesChart extends Component {
 
   }
 
+  calculateAlertStatus(alertNumber,trucks){
+    
+    let isHigherThanAlert = false;
+
+    trucks.some(t => {
+      let totalMins = t.minutes
+    
+      if(totalMins > this.state.alertLevel){
+        isHigherThanAlert =  true;
+        return true;
+      }
+      return false;
+    })
+
+    return isHigherThanAlert;
+  }
+
+  componentWillMount(){
+    console.log('cwm')
+    let curPropstphLimit = this.props.storeVals.mpfLimit;
+    console.log('curPropstphLimit')
+    console.log(curPropstphLimit)
+
+    let curAlertLevel = this.state.alertLevel;
+    if(curAlertLevel !== curPropstphLimit && curPropstphLimit > 0){
+       this.setState({alertLevel: curPropstphLimit})
+    }
+  }
+
   //IF the alert line was set in settings, update chart
   componentDidMount(){
-    let curPropsmpfLimit = this.props.storeVals.mpfLimit;
-    let curAlertLevel = this.state.alertLevel;
-    if(curAlertLevel !== curPropsmpfLimit && curPropsmpfLimit){
-       this.setState({alertLevel: curPropsmpfLimit})
-    }
+    let alertStatus = this.calculateAlertStatus(this.state.alertLevel, data)
+    this.setState({showAlert: alertStatus})
 
   }
 
   render() {
     
+    console.log('rendering state')
+    console.log(this.state)
     //set svg dimensions
     const svgDimensions = {
       width: Math.max(this.props.parentWidth, 300),
@@ -109,6 +140,8 @@ class FacilityMinutesChart extends Component {
       />
     })
 
+    const alertImg = (this.state.showAlert === true) ? <image xlinkHref={alertImageImport} x="25" y="25" height="50px" width="50px"/> : null;
+
     let thisStyleObj = {
       'width': svgDimensions.width,
       'height' : svgDimensions.height,
@@ -123,12 +156,14 @@ class FacilityMinutesChart extends Component {
       y: this.state.alertLevel
     };
 
+    console.log('lineVals')
+    console.log(lineVals)
+
     return (
       <svg 
-        className="trucksPerHourSVG"
-        width={svgDimensions.width}
-        height={svgDimensions.height}
         style={thisStyleObj} >
+
+        {alertImg}
 
         <AxesAndMath
           scales={{ xScale, yScale }}
