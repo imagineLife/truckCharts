@@ -9,9 +9,9 @@ export default class AlertLine extends Component {
     const thisLine = (
       <line
         fill={'none'}
-        stroke={'red'}
+        stroke={'rgba(255,0,0,.4)'}
         strokeDasharray={'4 0 4'}
-        strokeWidth={4}
+        strokeWidth={3}
         className={'alertLine'}
         x1={xScale(lineVals.x1)}
         x2={xScale(lineVals.x2)+ ( xScale.bandwidth() * .75 ) }
