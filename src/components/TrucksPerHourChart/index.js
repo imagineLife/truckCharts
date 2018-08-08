@@ -11,11 +11,12 @@ import AlertLine from '../AlertLine'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import './style.css';
 import { connect } from 'react-redux';
+import alertImageImport from '../../imgs/alert.ico'
 
 class TrucksPerHourChart extends Component {
   constructor() {
     super()
-    this.xScale = scaleBand().padding(0.2)
+    this.xScale = scaleBand()
     this.yScale = scaleLinear()
     this.calcXPos = this.calcXPos.bind(this)
     this.state = {
@@ -43,9 +44,12 @@ class TrucksPerHourChart extends Component {
         }
       ],
       margins : { top: 75, right: 20, bottom: 100, left: 60 },
-      alertLevel: 10,
-      todaysTruckData: data
+      alertLevel: 11,
+      todaysTruckData: data,
+      showAlert: false
     }
+
+    this.calculateAlertStatus = this.calculateAlertStatus.bind(this);
   }
 
   calcXPos(string, dims){
@@ -70,24 +74,40 @@ class TrucksPerHourChart extends Component {
 
   }
 
-//IF the alert line was set in settings, update chart
-  componentDidMount(){
+  calculateAlertStatus(alertNumber,trucks){
+    
+    let isHigherThanAlert = false;
+
+    trucks.some(t => {
+    
+      let totalTrucks = t.trucks[0].truckCount + t.trucks[1].truckCount;
+    
+      if(totalTrucks > this.state.alertLevel){
+        isHigherThanAlert =  true;
+        return false;
+      }
+      return false;
+    })
+
+    return isHigherThanAlert;
+  }
+
+  componentWillMount(){
     let curPropstphLimit = this.props.storeVals.tphLimit;
     let curAlertLevel = this.state.alertLevel;
     if(curAlertLevel !== curPropstphLimit && curPropstphLimit){
        this.setState({alertLevel: curPropstphLimit})
     }
+  }
+
+//IF the alert line was set in settings, update chart
+  componentDidMount(){
+    let alertStatus = this.calculateAlertStatus(this.state.alertLevel, data)
+    this.setState({showAlert: alertStatus})
 
   }
 
   render() {
-    console.log('RENDERING')
-    console.log(this.state.alertLevel)
-
-    if(this.props.storeVals.tphLimit){
-      console.log('ARE this.props.storeVals')
-      console.log(this.props.storeVals)
-    }
     
     //set svg dimensions
     const svgDimensions = {
@@ -117,7 +137,7 @@ class TrucksPerHourChart extends Component {
       .range([this.state.margins.left, svgDimensions.width - this.state.margins.right])
 
     const yScale = this.yScale
-      .domain([0, maxDataValue])
+      .domain([0, maxDataValue * 1.1])
       .range([svgDimensions.height - this.state.margins.bottom, this.state.margins.top])
 
     const axisLabels = this.state.labels.map((each) => {
@@ -132,6 +152,8 @@ class TrucksPerHourChart extends Component {
         transformation={each.transformation}
       />
     })
+
+    const alertImg = (this.state.showAlert === true) ? <image xlinkHref={alertImageImport} x="25" y="25" height="50px" width="50px"/> : null;
 
     let thisStyleObj = {
       'width': svgDimensions.width,
@@ -149,6 +171,8 @@ class TrucksPerHourChart extends Component {
     return (
       <svg 
         style={thisStyleObj} >
+
+        {alertImg}
 
         <AxesAndMath
           scales={{ xScale, yScale }}
