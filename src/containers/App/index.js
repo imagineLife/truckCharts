@@ -6,10 +6,10 @@ import {
     Switch
 } from 'react-router-dom';
 import './App.css';
-import Nav from '../Nav';
-import ChartWrapper from '../../containers/ChartWrapper';
-import Settings from '../../containers/Settings';
-import Dashboard from '../../containers/Dashboard';
+import Nav from '../../components/Nav';
+import ChartWrapper from '../ChartWrapper';
+import Settings from '../Settings';
+import Dashboard from '../Dashboard';
 
 export default class App extends React.Component {
 
