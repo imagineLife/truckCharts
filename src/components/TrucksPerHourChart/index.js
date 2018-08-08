@@ -3,6 +3,7 @@ import { scaleBand, scaleLinear } from 'd3-scale'
 
 import data from '../../data'
 import yesterdayData from '../../dataYesterday'
+import lastWeekData from '../../dataLastWeek'
 import AxisLabel from '../AxisLabel'
 import AxesAndMath from '../Axes'
 import Bars from '../Bars'
@@ -65,7 +66,7 @@ class TrucksPerHourChart extends Component {
 
   calcYPos(string, dims){
     if(string.indexOf('y') > -1){
-      return dims.width * .02
+      return 20
     }else if(string.indexOf('c') > -1){
       return (dims.height * .05)
     }else{

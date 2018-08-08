@@ -61,7 +61,7 @@ class FacilityMinutesChart extends Component {
 
   calcYPos(string, dims){
     if(string.indexOf('y') > -1){
-      return dims.width * .02
+      return 20
     }else if(string.indexOf('c') > -1){
       return (dims.height * .05)
     }else{
