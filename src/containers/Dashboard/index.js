@@ -1,7 +1,7 @@
 import React from 'react';
 import './chartWrapper.css'
-import TrucksPerHourChart from '../TrucksPerHourChart';
-import TruckTimeInFacilityChart from '../TruckTimeInFacilityChart';
+import TrucksPerHourChart from '../../components/TrucksPerHourChart';
+import TruckTimeInFacilityChart from '../../components/TruckTimeInFacilityChart';
 
 
 export default class ChartWrapper extends React.Component {
