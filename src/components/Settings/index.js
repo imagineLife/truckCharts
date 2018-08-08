@@ -11,7 +11,8 @@ export class Settings extends React.Component {
     this.state = {
       alerts: {
         tphLimit: '',
-        mpfLimit: ''
+        mpfLimit: '',
+        historicalRange: ''
       },
       submittedForm:false
     }
@@ -22,21 +23,24 @@ export class Settings extends React.Component {
   }
 
   updateFormVal(e){
+    console.log('updatingFormVal!!')
     let idVal = e.target.id
+    console.log(`idVal ${idVal}`)
     let curAlerts = this.state.alerts
     curAlerts[idVal] = e.target.value
     this.setState({alerts: curAlerts})
-
   }
 
   submitForm(e){
     e.preventDefault();
     this.props.dispatch({type: 'updateAlertLevels', payload: this.state.alerts})
     this.setState({submittedForm: true})
-
   }
 
   render(){
+
+    console.log('rendering state.alerts')
+    console.log(this.state.alerts)
 
     if(this.state.submittedForm){
       return(
@@ -67,6 +71,22 @@ export class Settings extends React.Component {
                     value={this.state.alerts.mpfLimit}
                     onChange={this.updateFormVal}
                   />
+              </label>
+
+              <label 
+                className="settingsLabel" 
+                htmlFor="historicalRange"
+              >Historical Comparison Line Time-Range:
+                
+                <select className="dd-wrapper" 
+                    id="historicalRange" 
+                    name="historicalRange"
+                    onChange={this.updateFormVal} >
+                    <option className="dd-list-item" value="0"></option>
+                    <option className="dd-list-item" onSelect={this.updateFormVal} value="1">Yesterday</option>
+                    <option className="dd-list-item" onSelect={this.updateFormVal} value="2">Last Week Averages</option>
+                </select>
+
               </label>
 
               <input type="button" name="submit" id='submit' onClick={this.submitForm} value="Set Alert Levels" />
