@@ -1,7 +1,7 @@
 import React from 'react';
 import './chartWrapper.css'
-// import TrucksPerHourChart from '../../components/TrucksPerHourChart';
-// import TruckTimeInFacilityChart from '../../components/TruckTimeInFacilityChart';
+import TrucksPerHourChart from '../../components/TrucksPerHourChart';
+import TruckTimeInFacilityChart from '../../components/TruckTimeInFacilityChart';
 import ResizingSection from '../../components/ResizingSection';
 
 
@@ -12,13 +12,13 @@ export default class ChartWrapper extends React.Component {
     this.state = {
       sectionsArray : [
         {
-          Title: `Avg. Minutes in Facility`,
+          Title: `Avg Minutes in Facility`,
           value : 47,
           colSize:3,
           height: '80px'
         },
         {
-          Title: `Avg. Trucks per Hour`,
+          Title: `Avg Trucks per Hour`,
           value : 12,
           colSize:3,
           height: '80px'
@@ -37,13 +37,13 @@ export default class ChartWrapper extends React.Component {
         },
         {
           Title: `Facility Time Per Truck`,
-          value : false,
+          value : <TruckTimeInFacilityChart />,
           colSize:12,
           height: '80px'
         },
         {
           Title: `Trucks Per Hour`,
-          value : false,
+          value : <TrucksPerHourChart />,
           colSize:12,
           height: '80px'
         }

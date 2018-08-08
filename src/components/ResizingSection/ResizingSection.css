@@ -4,4 +4,20 @@ section {
   background-color: rgba(126,126,126,.5);
   border-radius: 5px;
   margin: 20px 15px;
+  text-align: center;
+}
+
+.resizingSection{
+	position: relative;
+}
+
+.sectionHeader{
+	font-size: 1.2em;
+}
+
+.numberContent{
+	font-size: 6em;
+	position: absolute;
+	bottom: 20%;
+	margin: 0px 0 0 30%;
 }
