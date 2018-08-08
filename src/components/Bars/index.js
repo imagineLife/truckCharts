@@ -31,7 +31,7 @@ export default class Bars extends Component {
               y={yScale(totalTruckCountThisHour)}
               height={height - margins.bottom - scales.yScale(totalTruckCountThisHour)}
               width={xScale.bandwidth() * .75}
-              fill={'rgba(255,255,255,.5)'}
+              fill={'cadetblue'}
               stroke={'gray'}
               // fill={'rgba(255,255,255,.5)'}
             />
