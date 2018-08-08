@@ -88,12 +88,10 @@ class FacilityMinutesChart extends Component {
   }
 
   componentWillMount(){
-    console.log('cwm')
+    //grab vals from store & state
     let curPropstphLimit = this.props.storeVals.mpfLimit;
-    console.log('curPropstphLimit')
-    console.log(curPropstphLimit)
-
     let curAlertLevel = this.state.alertLevel;
+    //set state alertLevel val if not net
     if(curAlertLevel !== curPropstphLimit && curPropstphLimit > 0){
        this.setState({alertLevel: curPropstphLimit})
     }
@@ -108,8 +106,6 @@ class FacilityMinutesChart extends Component {
 
   render() {
     
-    console.log('rendering state')
-    console.log(this.state)
     //set svg dimensions
     const svgDimensions = {
       width: Math.max(this.props.parentWidth, 300),
@@ -155,9 +151,6 @@ class FacilityMinutesChart extends Component {
       x2: 653,
       y: this.state.alertLevel
     };
-
-    console.log('lineVals')
-    console.log(lineVals)
 
     return (
       <svg 

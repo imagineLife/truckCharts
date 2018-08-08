@@ -98,7 +98,7 @@ class TrucksPerHourChart extends Component {
     let storePropsTphLimit = this.props.storeVals.tphLimit;
     let curAlertLevel = this.state.alertLevel;
 
-    let histDataSrc = (this.props.storeVals.historicalRange = 2) ? lastWeekData : yesterdayData;
+    let histDataSrc = this.props.storeVals.historicalRange = 2 ? lastWeekData : yesterdayData;
     if(curAlertLevel !== storePropsTphLimit && storePropsTphLimit){
        this.setState({
         alertLevel: storePropsTphLimit,
