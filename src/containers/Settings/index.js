@@ -63,7 +63,7 @@ export class Settings extends React.Component {
                 />
               </label>
 
-              <label className="settingsLabel" htmlFor="mpfLimit">Maximum Facility Minitues Alert:
+              <label className="settingsLabel" htmlFor="mpfLimit">Maximum Facility Minutes Alert:
                 <input 
                     className="settingsInput" 
                     id="mpfLimit" 

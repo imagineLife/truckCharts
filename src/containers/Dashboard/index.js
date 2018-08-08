@@ -12,20 +12,20 @@ export default class ChartWrapper extends React.Component {
     this.state = {
       sectionsArray : [
         {
-          Title: `Avg Time in Facility`,
-          value : 47,
+          Title: `Current Time in Facility`,
+          value : 37,
           colSize:3,
           height: '80px'
         },
         {
           Title: `Avg Trucks per Hour`,
-          value : 12,
+          value : 15,
           colSize:3,
           height: '80px'
         },
         {
-          Title: `Trucks In Transit`,
-          value : 8,
+          Title: `Trucks at the Elevator`,
+          value : 6,
           colSize:3,
           height: '80px'
         },
