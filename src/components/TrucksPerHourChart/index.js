@@ -47,6 +47,7 @@ class TrucksPerHourChart extends Component {
       margins : { top: 75, right: 20, bottom: 100, left: 60 },
       alertLevel: 11,
       todaysTruckData: data,
+      historicalDataSource: yesterdayData,
       showAlert: false
     }
 
@@ -94,10 +95,15 @@ class TrucksPerHourChart extends Component {
   }
 
   componentWillMount(){
-    let curPropstphLimit = this.props.storeVals.tphLimit;
+    let storePropsTphLimit = this.props.storeVals.tphLimit;
     let curAlertLevel = this.state.alertLevel;
-    if(curAlertLevel !== curPropstphLimit && curPropstphLimit){
-       this.setState({alertLevel: curPropstphLimit})
+
+    let histDataSrc = (this.props.storeVals.historicalRange = 2) ? lastWeekData : yesterdayData;
+    if(curAlertLevel !== storePropsTphLimit && storePropsTphLimit){
+       this.setState({
+        alertLevel: storePropsTphLimit,
+        historicalDataSource: histDataSrc
+      })
     }
   }
 
@@ -192,7 +198,7 @@ class TrucksPerHourChart extends Component {
         <Line
           scales={{ xScale, yScale }}
           margins={this.state.margins}
-          data={yesterdayData}
+          data={this.state.historicalDataSource}
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
         />
