@@ -8,7 +8,7 @@ nav {
   bottom: 0;
   left: 0;
   right: 0;
-  line-height: 45px;
+  line-height: 20px;
   z-index: 10;
   background-color: rgb(255,255,255);
   border-top: 2px solid gray;
@@ -25,12 +25,12 @@ ul li.liWithIcon{
   margin: 0 auto;
   list-style-type: none;
   display:inline-block;
-  width:50%;
+  width:33%;
   text-align: center;
   cursor: pointer;
 }
 
-.liWithIcon:hover{
+.liWithIcon:hover, a:hover{
   background-color: limegreen;
 }
 
@@ -43,4 +43,7 @@ ul li.liWithIcon{
 a{
   text-decoration: none;
   color: white;
+  width: 33%;
+  float: left;
+  text-align: center;
 }

@@ -3,6 +3,7 @@ import './Nav.css';
 import NavLink from '../NavLink';
 import settingsImg from '../../imgs/settings.png'
 import chartsImg from '../../imgs/charts.png'
+import dashboardImg from '../../imgs/dash.ico'
 
 export default function Nav() {
 	//Help update this specific navLink text to change when signed-in-or-not :) 
@@ -18,7 +19,12 @@ export default function Nav() {
 		{
 			linkTo : "/charts",
 			imgSrc : chartsImg,
-			alt : "Charts"
+			alt : "ChartsDemo"
+		},
+		{
+			linkTo : "/dashboard",
+			imgSrc : dashboardImg,
+			alt : "Dashboard"
 		}
 	];
 

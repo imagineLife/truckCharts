@@ -78,6 +78,7 @@ div[class*="col-"], section[class*="col-"] {
     background-color: rgba(0,0,0,.8);
     top: 0;
     border: none;
+    line-height: 45px;
   }
 
 }
