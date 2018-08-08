@@ -4,7 +4,11 @@ const initialState = {};
 
 const chartAlertsReducer = function(state=initialState, action){
 	if(action.type === 'updateAlertLevels'){
-		state = Object.assign({}, {tphLimit: action.payload.tphLimit, mpfLimit: action.payload.mpfLimit })
+		state = Object.assign({}, {
+			tphLimit: action.payload.tphLimit,
+			mpfLimit: action.payload.mpfLimit,
+			historicalRange: action.payload.historicalRange
+		})
 	}
 	return state;
 }
