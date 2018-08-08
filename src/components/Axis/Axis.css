@@ -1,11 +1,11 @@
 .Axis path,
 .Axis line {
-  stroke: #E0E0E0;
+  stroke: #EEEEEE;
 }
 
 .Axis text, .Axis-Bottom text {
   font-size: 15px;
-  fill: black;
+  fill: #EEEEEE;
 }
 
 .Axis-Bottom text {

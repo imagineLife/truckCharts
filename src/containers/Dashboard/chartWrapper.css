@@ -1,3 +1,11 @@
 .headerSpacer, .footerSpacer{
 	height: 50px;
 }
+
+.dashboardMain{
+	background-color: rgba(0,0,0,.8);
+}
+
+.dashboardMain > *{
+	color: white;
+}

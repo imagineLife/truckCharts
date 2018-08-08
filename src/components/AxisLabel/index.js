@@ -10,6 +10,7 @@ export default function AxisLabel(props){
         y={props.yPos}
         transform={props.transformation}
         textAnchor='middle'
+        fill={'#EEEEEE'}
       >{props.textVal}</text>
     </g>
   )

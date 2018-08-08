@@ -36,13 +36,13 @@ class TrucksPerHourChart extends Component {
           gWrapperClass : 'yAxisLabelG',
           transformation: 'rotate(-90)'
         },
-        {
-          type: 'chartTitle',
-          text : 'Trucks Per Hour In Facility',
-          textClass : 'chartTitle',
-          gWrapperClass : 'chartTitleG',
-          transformation: ''
-        }
+        // {
+        //   type: 'chartTitle',
+        //   text : 'Trucks Per Hour In Facility',
+        //   textClass : 'chartTitle',
+        //   gWrapperClass : 'chartTitleG',
+        //   transformation: ''
+        // }
       ],
       margins : { top: 75, right: 20, bottom: 100, left: 60 },
       alertLevel: 11,

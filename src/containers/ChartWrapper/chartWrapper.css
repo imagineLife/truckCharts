@@ -1,3 +1,7 @@
 .headerSpacer, .footerSpacer{
 	height: 50px;
 }
+
+.chartWrapper{
+	background-color: rgba(0,0,0,.8);
+}

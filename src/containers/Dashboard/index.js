@@ -12,7 +12,7 @@ export default class ChartWrapper extends React.Component {
     this.state = {
       sectionsArray : [
         {
-          Title: `Avg Minutes in Facility`,
+          Title: `Avg Time in Facility`,
           value : 47,
           colSize:3,
           height: '80px'
@@ -61,7 +61,7 @@ export default class ChartWrapper extends React.Component {
     })
 
     return (
-      <main role="main" className="doashboardMain">
+      <main role="main" className="dashboardMain">
         <div className="headerSpacer" />
         <div className="row">
           {sections[0]}{sections[1]}{sections[2]}{sections[3]}

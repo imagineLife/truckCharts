@@ -6,8 +6,22 @@ export default function ResizingSection(props) {
 	console.log(typeof props.value)
 	
 	let content;
+	//IF the content is a number, show it in a span
 	if (typeof props.value === 'number'){
-		content = <h2 className="numberContent">{props.value}</h2>
+		let thisVal = props.value;
+		if(props.value < 10){
+
+		}
+		content = <span className="numberContent">{props.value}</span>
+	}
+
+	//IF content is a component (object) return the component
+	if (typeof props.value === 'object'){
+		let thisVal = props.value;
+		if(props.value < 10){
+
+		}
+		content = thisVal;
 	}
 
 	return (

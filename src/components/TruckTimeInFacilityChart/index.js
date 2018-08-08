@@ -33,13 +33,13 @@ class FacilityMinutesChart extends Component {
           gWrapperClass : 'yAxisLabelG',
           transformation: 'rotate(-90)'
         },
-        {
-          type: 'chartTitle',
-          text : 'Minutes In the Facility Per Truck',
-          textClass : 'chartTitle',
-          gWrapperClass : 'chartTitleG',
-          transformation: ''
-        },
+        // {
+        //   type: 'chartTitle',
+        //   text : 'Minutes In the Facility Per Truck',
+        //   textClass : 'chartTitle',
+        //   gWrapperClass : 'chartTitleG',
+        //   transformation: ''
+        // },
       ],
       margins : { top: 75, right: 20, bottom: 100, left: 60 },
       alertLevel: 45
@@ -141,7 +141,7 @@ class FacilityMinutesChart extends Component {
     let thisStyleObj = {
       'width': svgDimensions.width,
       'height' : svgDimensions.height,
-      'marginTop': '125px',
+      // 'marginTop': '125px',
       'class': 'trucksPerHourSVG'
     }
 
