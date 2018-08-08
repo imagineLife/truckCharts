@@ -16,8 +16,8 @@
  **/
 .row {
   max-width: 1000px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
   margin: 0 auto;
 }
 
@@ -89,50 +89,50 @@ div[class*="col-"], section[class*="col-"] {
 
   div[class*="col-"], section[class*="col-"]{
     width: unset;
-    padding: 2%;
-    margin: 2%;
+    padding: 1%;
+    margin: 1%;
     float: left;
   }
 
   /* 2 columns, 2/12 in % */
   section.col-2 {
-    width: 12.66%;
+    width: 14.66%;
   }
 
   /* 3 columns, 3/12 in % */
   section.col-3 {
-    width: 21%;
-    height: 590px;
+    width: 23%;
+    height: 60px;
   }
 
   /* 4 columns */
   section.col-4 {
-    width: 29.333%;
+    width: 31.333%;
   }
 
   /* 5 columns */
   section.col-5 {
-    width: 37.666%;
+    width: 39.666%;
   }
 
   /* 6 columns */
   section.col-6, li.col-6 {
-    width: 46%;
+    width: 48%;
   }
 
   /* 8 columns */
   section.col-8 {
-    width: 62.666%;
+    width: 64.666%;
   }
 
   /* 9 columns */
   section.col-9 {
-    width: 71%;
+    width: 73%;
   }
 
   /* 12 columns */
   section.col-12 {
-    width: 96%;
+    width: 98%;
   }
 
   section header{

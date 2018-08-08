@@ -62,7 +62,7 @@ export default class ChartWrapper extends React.Component {
 
     return (
       <main role="main" className="doashboardMain">
-
+        <div className="headerSpacer" />
         <div className="row">
           {sections[0]}{sections[1]}{sections[2]}{sections[3]}
         </div>
