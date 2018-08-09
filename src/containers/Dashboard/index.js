@@ -32,7 +32,7 @@ export class Dashboard extends React.Component {
           height: '80px'
         },
         {
-          Title: `Alert`,
+          // Title: `Alert`,
           value : <Alert />,
           colSize:3,
           height: '80px'
