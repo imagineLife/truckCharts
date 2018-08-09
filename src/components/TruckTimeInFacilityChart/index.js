@@ -45,7 +45,7 @@ class FacilityMinutesChart extends Component {
       alertLevel: 45
     }
 
-    this.calculateAlertStatus = this.calculateAlertStatus.bind(this);    
+    this.calculateChartAlertStatus = this.calculateChartAlertStatus.bind(this);    
   }
 
   calcXPos(string, dims){
@@ -70,7 +70,7 @@ class FacilityMinutesChart extends Component {
 
   }
 
-  calculateAlertStatus(alertNumber,trucks){
+  calculateChartAlertStatus(alertNumber,trucks){
     
     let isHigherThanAlert = false;
 
@@ -99,12 +99,17 @@ class FacilityMinutesChart extends Component {
 
   //IF the alert line was set in settings, update chart
   componentDidMount(){
-    let alertStatus = this.calculateAlertStatus(this.state.alertLevel, data)
+    let alertStatus = this.calculateChartAlertStatus(this.state.alertLevel, data)
     this.setState({showAlert: alertStatus})
 
   }
 
   render() {
+
+    let dataCommodities = [
+      {name: 'YC', color: 'steelblue'},
+      {name: 'SB', color: 'green'}
+    ];
     
     //set svg dimensions
     const svgDimensions = {
@@ -123,6 +128,21 @@ class FacilityMinutesChart extends Component {
       .domain([0, maxDataValue*1.1])
       .range([svgDimensions.height - this.state.margins.bottom, this.state.margins.top])
 
+    // const legendItems = dataCommodities.map((dc, i) => {
+    //   let circleX = (i + 1) * 50; 
+    //   let circleY = (i + 1) - 50; 
+    //   let textY = (i + 1) - 150; 
+
+    //     return(
+    //         <g className="legendItem" key={dc.name}>
+    //           <circle cx="50" cy="50" x={thisXval} y='-50' r="15" strokeWidth="3" fill={dc.color}></circle>
+    //           <text key={dc.name} x={thisXval} y='-50' className='legendItem' fill='black' >{dc.name}</text>
+    //         </g>
+    //       )
+    // })
+
+    // console.log('legendItems')
+    // console.log(legendItems)
     const axisLabels = this.state.labels.map((each) => {
 
       return <AxisLabel
@@ -134,7 +154,9 @@ class FacilityMinutesChart extends Component {
         textVal={each.text}
         transformation={each.transformation}
       />
+
     })
+
 
     const alertImg = (this.state.showAlert === true) ? <image xlinkHref={alertImageImport} x="25" y="25" height="50px" width="50px"/> : null;
 
@@ -178,6 +200,7 @@ class FacilityMinutesChart extends Component {
           lineVals={lineVals}
           svgDimensions={svgDimensions}
         />
+
         {axisLabels}
 
       </svg>
