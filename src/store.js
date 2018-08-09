@@ -17,11 +17,16 @@ const chartAlertsReducer = function(state=initialState, action){
 	if(action.type === 'setContainerAlertState'){
 		state = Object.assign({}, {
 			containerAlertStatus: action.payload.chartAlertStatuses,
-			alertedCharts: action.payload.alertedCharts.map((chartName) => {
-				let chartNames = [];
-				chartNames.push(chartName)
-				return chartNames
-			})
+		
+			//IF there's an alertedCharts payload, update
+			// ELSE nothing
+			alertedCharts: (action.payload.alertedCharts) 
+				? action.payload.alertedCharts.map((chartName) => {
+					let chartNames = [];
+					chartNames.push(chartName)
+					return chartNames
+				})
+				: ''
 		})
 	}
 	return state;
