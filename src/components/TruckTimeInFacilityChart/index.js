@@ -118,7 +118,7 @@ class TruckTimeInFacility extends Component {
     //IF component alert & redux alert dont match
     //Update redux state
     if( thisChartAlertStatus !== isThisChartAlertInReduxStore){
-      let thisChart = (thisChartAlertStatus) ? [thisChartName] : ''
+      let thisChart = (thisChartAlertStatus) ? thisChartName : ''
       this.props.dispatch({
         type: 'setContainerAlertState', 
         payload: {

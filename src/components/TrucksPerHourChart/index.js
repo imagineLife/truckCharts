@@ -107,10 +107,49 @@ class TrucksPerHourChart extends Component {
     }
   }
 
-//IF the alert line was set in settings, update chart
+  //IF the alert line was set in settings, update chart
+  //IF redux & local alert status are different,
+  // update the redux store with this alert status
   componentDidMount(){
-    let alertStatus = this.calculateAlertStatus(this.state.alertLevel, data)
-    this.setState({showAlert: alertStatus})
+
+    let thisChartName = 'Trucks Per Hour';
+
+    let thisChartAlertStatus = this.calculateAlertStatus(this.state.alertLevel, data)
+    
+    console.log('TPH CHART thisChartAlertStatus')
+    console.log(thisChartAlertStatus)
+    console.log('- - - -')
+
+    let reduxStoreAlertedCharts = this.props.storeVals.alertedCharts;
+
+    console.log('TPH CHART reduxStoreAlertedCharts')
+    console.log(reduxStoreAlertedCharts)
+    console.log('- - - -')
+    //see if this chart alert is in redux Store,
+    let isThisChartAlertInReduxStore = (reduxStoreAlertedCharts) 
+      ? reduxStoreAlertedCharts.includes(thisChartName)
+      : false;
+
+    console.log('TPH CHART isThisChartAlertInReduxStore')
+    console.log(isThisChartAlertInReduxStore)
+    console.log('- - - -')
+    
+    //IF component alert & redux alert dont match
+    //Update redux state
+    if( thisChartAlertStatus !== isThisChartAlertInReduxStore){
+      console.log('TPH YES not in redux store')
+      let thisChart = (thisChartAlertStatus) ? thisChartName : ''
+      this.props.dispatch({
+        type: 'setContainerAlertState', 
+        payload: {
+          chartAlertStatuses: thisChartAlertStatus,
+          alertedCharts: thisChart
+        }
+      })      
+    }
+
+
+    this.setState({showAlert: thisChartAlertStatus})
 
   }
 
@@ -218,6 +257,5 @@ class TrucksPerHourChart extends Component {
 }
 
 const mapStateToProps = state => ({ storeVals: state })
-
 
 export default ResponsiveWrapper(connect(mapStateToProps)(TrucksPerHourChart) )

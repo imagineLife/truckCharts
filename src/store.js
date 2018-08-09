@@ -2,12 +2,15 @@ import {createStore} from 'redux';
 
 const initialState = {
 	containerAlertStatus: false,
-	alertedCharts: []
+	alertedCharts: '',
+	tphLimit: '',
+	mpfLimit: '',
+	historicalRange: ''
 };
 
 const chartAlertsReducer = function(state=initialState, action){
 	if(action.type === 'updateAlertLevels'){
-		state = Object.assign({}, {
+		state = Object.assign({}, ...state, {
 			tphLimit: action.payload.tphLimit,
 			mpfLimit: action.payload.mpfLimit,
 			historicalRange: action.payload.historicalRange
@@ -15,20 +18,13 @@ const chartAlertsReducer = function(state=initialState, action){
 	}
 
 	if(action.type === 'setContainerAlertState'){
-		state = Object.assign({}, {
+
+		state = Object.assign({}, ...state, {
 			containerAlertStatus: action.payload.chartAlertStatuses,
-		
-			//IF there's an alertedCharts payload, update
-			// ELSE nothing
-			alertedCharts: (action.payload.alertedCharts) 
-				? action.payload.alertedCharts.map((chartName) => {
-					let chartNames = [];
-					chartNames.push(chartName)
-					return chartNames
-				})
-				: []
+			alertedCharts: [state.alertedCharts, action.payload.alertedCharts]
 		})
 	}
+
 	return state;
 }
 
