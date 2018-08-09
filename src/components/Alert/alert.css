@@ -17,3 +17,12 @@ nav li{
 	margin-left: 10px;
 	margin-right: 10px;
 }
+
+.bigAlertIcon{
+	height: 140px;
+	width: 140px;
+}
+
+.bigAlertText{
+	margin: 0;
+}
