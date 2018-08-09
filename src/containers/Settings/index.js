@@ -44,24 +44,16 @@ export class Settings extends React.Component {
 
     if(this.state.submittedForm){
       return(
-        <Redirect to='/charts' />
+        <Redirect to='/dashboard' />
       )
     }else{
       return (
         <div className="settingsWrapper">
           <div className="headerSpacer"></div>
+          
           <h2> Charts Alert-Levels Settings</h2>
+            
             <form className="settingsForm">
-              
-              <label className="settingsLabel" htmlFor="tphLimit">Minimum Trucks Per Hour Alert:
-                <input 
-                  className="settingsInput" 
-                  id="tphLimit" 
-                  name="tphLimit" 
-                  value={this.state.alerts.tphLimit} 
-                  onChange={this.updateFormVal}
-                />
-              </label>
 
               <label className="settingsLabel" htmlFor="mpfLimit">Maximum Facility Minutes Alert:
                 <input 
@@ -71,6 +63,16 @@ export class Settings extends React.Component {
                     value={this.state.alerts.mpfLimit}
                     onChange={this.updateFormVal}
                   />
+              </label>
+
+              <label className="settingsLabel" htmlFor="tphLimit">Minimum Trucks Per Hour Alert:
+                <input 
+                  className="settingsInput" 
+                  id="tphLimit" 
+                  name="tphLimit" 
+                  value={this.state.alerts.tphLimit} 
+                  onChange={this.updateFormVal}
+                />
               </label>
 
               <label 
