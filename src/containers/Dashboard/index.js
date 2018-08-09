@@ -3,9 +3,10 @@ import './chartWrapper.css'
 import TrucksPerHourChart from '../../components/TrucksPerHourChart';
 import TruckTimeInFacilityChart from '../../components/TruckTimeInFacilityChart';
 import ResizingSection from '../../components/ResizingSection';
+import { connect } from 'react-redux';
 
 
-export default class ChartWrapper extends React.Component {
+export class Dashboard extends React.Component {
   constructor(props){
     super(props)
 
@@ -60,6 +61,10 @@ export default class ChartWrapper extends React.Component {
       return <ResizingSection key={ind} {...sec}  />;
     })
 
+    console.log('Dashboard rendering REDUX STORE VALS via this.props.storeAlerts')
+    console.log(this.props.storeAlerts)
+
+
     return (
       <main role="main" className="dashboardMain">
         <div className="headerSpacer" />
@@ -80,3 +85,7 @@ export default class ChartWrapper extends React.Component {
   
   }
 }
+
+const mapStateToProps = state => ({storeAlerts: state})
+
+export default connect(mapStateToProps)(Dashboard);
