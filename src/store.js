@@ -2,7 +2,7 @@ import {createStore} from 'redux';
 
 const initialState = {
 	containerAlertStatus: false,
-	alertedCharts: ''
+	alertedCharts: []
 };
 
 const chartAlertsReducer = function(state=initialState, action){
@@ -26,7 +26,7 @@ const chartAlertsReducer = function(state=initialState, action){
 					chartNames.push(chartName)
 					return chartNames
 				})
-				: ''
+				: []
 		})
 	}
 	return state;
