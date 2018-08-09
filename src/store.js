@@ -10,6 +10,17 @@ const chartAlertsReducer = function(state=initialState, action){
 			historicalRange: action.payload.historicalRange
 		})
 	}
+
+	if(action.type === 'setContainerAlertState'){
+		state = Object.assign({}, {
+			containerAlertStatus: action.payload.chartAlertStatuses,
+			alertedCharts: action.payload.alertedCharts.map((chartName) => {
+				let chartNames = [];
+				chartNames.push(chartName)
+				return chartNames
+			})
+		})
+	}
 	return state;
 }
 
