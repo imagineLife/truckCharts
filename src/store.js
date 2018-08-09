@@ -1,6 +1,9 @@
 import {createStore} from 'redux';
 
-const initialState = {};
+const initialState = {
+	containerAlertStatus: false,
+	alertedCharts: ''
+};
 
 const chartAlertsReducer = function(state=initialState, action){
 	if(action.type === 'updateAlertLevels'){
