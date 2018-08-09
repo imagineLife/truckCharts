@@ -100,22 +100,29 @@ class FacilityMinutesChart extends Component {
   }
 
   //IF the alert line was set in settings, update chart
+  //IF redux & local alert status are different,
+  // update the redux store with this alert status
   componentDidMount(){
 
-    //make an 'alertStatus' true/false
-    let alertStatus = this.calculateChartAlertStatus(this.state.alertLevel, data)
-    
-    //put Redux alert state in var
-    let reduxContainerAlertStatus = this.props.storeVals.containerAlertStatus;
+    let thisChartName = 'Minutes In the Facility Per Truck';
 
-    //IF component alert & container alert dont match
+    //make an 'alertStatus' true/false
+    let thisChartAlertStatus = this.calculateChartAlertStatus(this.state.alertLevel, data)
+
+
+    //see if this chart alert is in redux Store,
+    let isThisChartAlertInReduxStore = (this.props.storeVals.alertedCharts) 
+      ? this.props.storeVals.alertedCharts.includes(thisChartName)
+      : false;
+
+    //IF component alert & redux alert dont match
     //Update redux state
-    if( alertStatus != reduxContainerAlertStatus){
-      let thisChart = (alertStatus) ? ['Minutes In the Facility Per Truck'] : ''
+    if( thisChartAlertStatus !== isThisChartAlertInReduxStore){
+      let thisChart = (thisChartAlertStatus) ? [thisChartName] : ''
       this.props.dispatch({
         type: 'setContainerAlertState', 
         payload: {
-          chartAlertStatuses: alertStatus,
+          chartAlertStatuses: thisChartAlertStatus,
           alertedCharts: thisChart
         }
       })      
@@ -123,16 +130,16 @@ class FacilityMinutesChart extends Component {
     
 
     //set container state to show alert on chart
-    this.setState({showAlert: alertStatus})
+    this.setState({showAlert: thisChartAlertStatus})
 
   }
 
   render() {
 
-    let dataCommodities = [
-      {name: 'YC', color: 'steelblue'},
-      {name: 'SB', color: 'green'}
-    ];
+    // let dataCommodities = [
+    //   {name: 'YC', color: 'steelblue'},
+    //   {name: 'SB', color: 'green'}
+    // ];
     
     //set svg dimensions
     const svgDimensions = {
