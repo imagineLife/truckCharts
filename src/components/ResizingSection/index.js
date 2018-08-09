@@ -2,8 +2,6 @@ import React from 'react';
 import './ResizingSection.css';
 
 export default function ResizingSection(props) {
-	console.log('resizing section props TYPE')
-	console.log(typeof props.value)
 	
 	let content;
 	//IF the content is a number, show it in a span
