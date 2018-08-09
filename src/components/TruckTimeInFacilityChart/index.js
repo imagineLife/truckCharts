@@ -11,7 +11,7 @@ import './style.css';
 import { connect } from 'react-redux';
 import alertImageImport from '../../imgs/alert.ico'
 
-class FacilityMinutesChart extends Component {
+class TruckTimeInFacility extends Component {
   constructor() {
     super()
     this.xScale = scaleBand().padding(0.2)
@@ -240,4 +240,4 @@ class FacilityMinutesChart extends Component {
 
 const mapStateToProps = state => ({ storeVals: state })
 
-export default ResponsiveWrapper(connect(mapStateToProps)(FacilityMinutesChart))
+export default ResponsiveWrapper(connect(mapStateToProps)(TruckTimeInFacility))
