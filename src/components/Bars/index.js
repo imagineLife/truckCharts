@@ -7,6 +7,21 @@ export default class Bars extends Component {
 
     this.colorScale = scaleOrdinal()
       .range(['steelblue', 'green']);
+
+    this.showBarDetails = this.showBarDetails.bind(this)
+
+    this.state = {}
+  }
+
+  showBarDetails(barData){
+    console.log('showing bar details')
+    console.log(barData)
+  }
+
+  componentDidMount(){
+    if (!this.state.barData){
+      this.setState({barData: this.props.data});
+    }
   }
 
   render() {
@@ -33,6 +48,7 @@ export default class Bars extends Component {
               width={xScale.bandwidth() * .75}
               fill={'cadetblue'}
               stroke={'gray'}
+              onClick={() => this.showBarDetails(barData)}
               // fill={'rgba(255,255,255,.5)'}
             />
             
@@ -44,6 +60,7 @@ export default class Bars extends Component {
               height={height - margins.bottom - scales.yScale(barData.minutes)}
               width={xScale.bandwidth()}
               fill={this.colorScale(barData.commodity)}
+              onClick={() => this.showBarDetails(barData)}
               stroke={'gray'}
               // fill={'rgba(255,255,255,.5)'}
             />
