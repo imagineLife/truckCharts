@@ -90,12 +90,12 @@ class TruckTimeInFacility extends Component {
   componentWillMount(){
     
     //grab vals from store & state
-    let curPropstphLimit = this.props.storeVals.mpfLimit;
+    let storePropsTphLimit = this.props.storeVals.mpfLimit;
     let curAlertLevel = this.state.alertLevel;
     
     //set state alertLevel val if not net
-    if(curAlertLevel !== curPropstphLimit && curPropstphLimit > 0){
-       this.setState({alertLevel: curPropstphLimit})
+    if(curAlertLevel !== storePropsTphLimit && storePropsTphLimit > 0){
+       this.setState({alertLevel: storePropsTphLimit})
     }
   }
 
