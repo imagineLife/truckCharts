@@ -3,6 +3,7 @@ import './chartWrapper.css'
 import TrucksPerHourChart from '../../components/TrucksPerHourChart';
 import TruckTimeInFacilityChart from '../../components/TruckTimeInFacilityChart';
 import ResizingSection from '../../components/ResizingSection';
+import Alert from '../../components/Alert';
 import { connect } from 'react-redux';
 
 
@@ -32,7 +33,7 @@ export class Dashboard extends React.Component {
         },
         {
           Title: `Alert`,
-          value : false,
+          value : <Alert />,
           colSize:3,
           height: '80px'
         },
@@ -61,10 +62,9 @@ export class Dashboard extends React.Component {
       return <ResizingSection key={ind} {...sec}  />;
     })
 
-    console.log('Dashboard rendering REDUX STORE VALS via this.props.storeAlerts')
-    console.log(this.props.storeAlerts)
-
-
+    console.log('Dashboard CONTAINER rendering REDUX STORE VALS via this.props.storeAlerts')
+    console.log(this.props.storeAlerts.containerAlertStatus)
+    console.log('- - - -')
     return (
       <main role="main" className="dashboardMain">
         <div className="headerSpacer" />
