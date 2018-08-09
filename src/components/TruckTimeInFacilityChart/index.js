@@ -88,9 +88,11 @@ class FacilityMinutesChart extends Component {
   }
 
   componentWillMount(){
+    
     //grab vals from store & state
     let curPropstphLimit = this.props.storeVals.mpfLimit;
     let curAlertLevel = this.state.alertLevel;
+    
     //set state alertLevel val if not net
     if(curAlertLevel !== curPropstphLimit && curPropstphLimit > 0){
        this.setState({alertLevel: curPropstphLimit})
@@ -99,7 +101,28 @@ class FacilityMinutesChart extends Component {
 
   //IF the alert line was set in settings, update chart
   componentDidMount(){
+
+    //make an 'alertStatus' true/false
     let alertStatus = this.calculateChartAlertStatus(this.state.alertLevel, data)
+    
+    //put Redux alert state in var
+    let reduxContainerAlertStatus = this.props.storeVals.containerAlertStatus;
+
+    //IF component alert & container alert dont match
+    //Update redux state
+    if( alertStatus != reduxContainerAlertStatus){
+      let thisChart = (alertStatus) ? ['Minutes In the Facility Per Truck'] : ''
+      this.props.dispatch({
+        type: 'setContainerAlertState', 
+        payload: {
+          chartAlertStatuses: alertStatus,
+          alertedCharts: thisChart
+        }
+      })      
+    }
+    
+
+    //set container state to show alert on chart
     this.setState({showAlert: alertStatus})
 
   }
