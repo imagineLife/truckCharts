@@ -237,6 +237,7 @@ class TruckTimeInFacility extends Component {
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
           mousedOver={this.mousedOver}
+          alertLevel={this.state.alertLevel}
           showBarDetails={this.showingBarDetails}
         />
 
