@@ -177,9 +177,6 @@ class TrucksPerHourChart extends Component {
       return true;
     })
 
-    console.log('after looping, data')
-    console.log(data)
-
     //max value from data
     const maxDataValue = Math.max(...data.map(d => d.thisHourTotalTrucks))
 
