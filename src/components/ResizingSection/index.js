@@ -6,7 +6,7 @@ export default function ResizingSection(props) {
 	let content;
 	//IF the content is a number, show it in a span
 	if (typeof props.value === 'number'){
-		let thisVal = props.value;
+		// let thisVal = props.value;
 		if(props.value < 10){
 
 		}
