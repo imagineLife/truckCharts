@@ -1,10 +1,11 @@
 import React from 'react'
 import { scaleOrdinal } from 'd3-scale'
+import './bars.css'
 
 export default function Bars(props) {
 
     let colorScale = scaleOrdinal()
-      .range(['steelblue', 'green']);
+      .range(['cadetblue', 'green']);
 
     const { scales, margins, data, svgDimensions } = props
     const { xScale, yScale } = scales
@@ -61,11 +62,12 @@ export default function Bars(props) {
               y={yScale(totalTruckCountThisHour)}
               height={height - margins.bottom - scales.yScale(totalTruckCountThisHour)}
               width={xScale.bandwidth() * .75}
-              fill={'cadetblue'}
+              fill={colorScale(barData.commodity)}
               stroke={calcLessStroke(barData)}
               strokeWidth={calcLessStrokeWidth(barData)}
               onClick={() => props.showBarDetails(barData)}
               onMouseOver={() => props.mousedOver(barData)}
+              className="singleBar"
             />
           )
         }else{
@@ -81,6 +83,7 @@ export default function Bars(props) {
               strokeWidth={calcMoreStrokeWidth(barData)}
               onClick={() => props.showBarDetails(barData)}
               onMouseOver={() => props.mousedOver(barData)}
+              className="singleBar"
             />
           )
         }
