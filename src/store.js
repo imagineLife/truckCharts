@@ -2,10 +2,10 @@ import {createStore} from 'redux';
 
 const initialState = {
 	containerAlertStatus: false,
-	alertedCharts: '',
+	alertedCharts: [],
 	tphLimit: '',
 	mpfLimit: '',
-	historicalRange: ''
+	historicalRange: '',
 };
 
 const chartAlertsReducer = function(state=initialState, action){
@@ -19,10 +19,20 @@ const chartAlertsReducer = function(state=initialState, action){
 
 	if(action.type === 'setContainerAlertState'){
 
-		state = Object.assign({}, ...state, {
+		//this cleans up an 'undefined' alertedCharts val
+		//shorthand for 'undefined' / null true/false !
+		const curAlertedCharts = state.alertedCharts || []
+
+		state = { ...state, 
 			containerAlertStatus: action.payload.chartAlertStatuses,
-			alertedCharts: [state.alertedCharts, action.payload.alertedCharts]
-		})
+			alertedCharts: [ ...curAlertedCharts, action.payload.alertedCharts]
+		}
+
+		//same as 
+		// state = Object.assign({}, ...state, {
+		// 	containerAlertStatus: action.payload.chartAlertStatuses,
+		// 	alertedCharts: [ ...curAlertedCharts, action.payload.alertedCharts]
+		// })
 	}
 
 	return state;
