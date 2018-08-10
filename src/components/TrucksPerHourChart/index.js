@@ -204,7 +204,6 @@ class TrucksPerHourChart extends Component {
       />
     })
 
-
     //make alert image 
     const alertImg = (this.state.showAlert === true) ? <image xlinkHref={alertImageImport} x="25" y="25" height="50px" width="50px"/> : null;
 
@@ -247,6 +246,7 @@ class TrucksPerHourChart extends Component {
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
           mousedOver={this.mousedOver}
+          alertLevel={this.state.alertLevel}
           showBarDetails={this.showingBarDetails}
         />
 
