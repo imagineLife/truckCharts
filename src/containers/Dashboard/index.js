@@ -62,9 +62,6 @@ export class Dashboard extends React.Component {
       return <ResizingSection key={ind} {...sec}  />;
     })
 
-    console.log('Dashboard CONTAINER rendering REDUX STORE VALS via this.props.storeAlerts')
-    console.log(this.props.storeAlerts.containerAlertStatus)
-    console.log('- - - -')
     return (
       <main role="main" className="dashboardMain">
         <div className="headerSpacer" />
