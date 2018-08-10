@@ -7,8 +7,9 @@
 }
 
 .settingsForm{
-	max-width: 350px;
+	max-width: 475px;
 	margin: 0 auto;
+	text-align: left;
 }
 
 .settingsLabel{
@@ -18,7 +19,6 @@
 }
 
 .settingsInput{
-	display: block;
-	margin: 10px auto;
+	margin: 10px 5px;
 
 }
