@@ -70,6 +70,17 @@ class TruckTimeInFacility extends Component {
 
   }
 
+  mousedOver(data){
+    console.log('MOUSED OVER running!!!')
+    console.log(data)
+  }
+
+  showingBarDetails(data){
+    console.log('CLICKED!')
+    console.log(data)
+  }
+
+
   calculateChartAlertStatus(alertNumber,trucks){
     
     let isHigherThanAlert = false;
@@ -119,6 +130,9 @@ class TruckTimeInFacility extends Component {
     //Update redux state
     if( thisChartAlertStatus !== isThisChartAlertInReduxStore){
       let thisChart = (thisChartAlertStatus) ? thisChartName : ''
+      console.log('dispatching this chart... ')
+      console.log(thisChart)
+      console.log('- - - - -')
       this.props.dispatch({
         type: 'setContainerAlertState', 
         payload: {
@@ -222,6 +236,8 @@ class TruckTimeInFacility extends Component {
           data={data}
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
+          mousedOver={this.mousedOver}
+          showBarDetails={this.showingBarDetails}
         />
 
         <AlertLine
@@ -232,6 +248,7 @@ class TruckTimeInFacility extends Component {
         />
 
         {axisLabels}
+
 
       </svg>
     )

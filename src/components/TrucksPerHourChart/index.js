@@ -52,6 +52,7 @@ class TrucksPerHourChart extends Component {
     }
 
     this.calculateAlertStatus = this.calculateAlertStatus.bind(this);
+    this.showingBarDetails = this.showingBarDetails.bind(this);
   }
 
   calcXPos(string, dims){
@@ -76,22 +77,27 @@ class TrucksPerHourChart extends Component {
 
   }
 
-  calculateAlertStatus(alertNumber,trucks){
-    
-    let isHigherThanAlert = false;
+  mousedOver(data){
+    console.log('MOUSED OVER running!!!')
+    console.log(data)
+  }
 
-    trucks.some(t => {
-    
-      let totalTrucks = t.trucks[0].truckCount + t.trucks[1].truckCount;
-    
-      if(totalTrucks > this.state.alertLevel){
-        isHigherThanAlert =  true;
-        return false;
-      }
-      return false;
+  showingBarDetails(data){
+    console.log('CLICKED!')
+    console.log(data)
+    this.setState({
+      boldText: (data.truckID) ? data.truckID : data.hour,
+      normText: (data.minutes) ? data.minutes : data.trucks[0].truckCount
     })
+  }
 
-    return isHigherThanAlert;
+  calculateAlertStatus(alertNumber,trucks){
+
+    return trucks.some(t => {
+
+      return ( t.trucks[0].truckCount + t.trucks[1].truckCount ) < this.state.alertLevel;
+
+    })
   }
 
   componentWillMount(){
@@ -115,30 +121,20 @@ class TrucksPerHourChart extends Component {
     let thisChartName = 'Trucks Per Hour';
 
     let thisChartAlertStatus = this.calculateAlertStatus(this.state.alertLevel, data)
-    
-    console.log('TPH CHART thisChartAlertStatus')
-    console.log(thisChartAlertStatus)
-    console.log('- - - -')
 
     let reduxStoreAlertedCharts = this.props.storeVals.alertedCharts;
 
-    console.log('TPH CHART reduxStoreAlertedCharts')
-    console.log(reduxStoreAlertedCharts)
-    console.log('- - - -')
     //see if this chart alert is in redux Store,
     let isThisChartAlertInReduxStore = (reduxStoreAlertedCharts) 
       ? reduxStoreAlertedCharts.includes(thisChartName)
       : false;
-
-    console.log('TPH CHART isThisChartAlertInReduxStore')
-    console.log(isThisChartAlertInReduxStore)
-    console.log('- - - -')
     
     //IF component alert & redux alert dont match
     //Update redux state
     if( thisChartAlertStatus !== isThisChartAlertInReduxStore){
-      console.log('TPH YES not in redux store')
+      
       let thisChart = (thisChartAlertStatus) ? thisChartName : ''
+      
       this.props.dispatch({
         type: 'setContainerAlertState', 
         payload: {
@@ -153,7 +149,13 @@ class TrucksPerHourChart extends Component {
 
   }
 
+
+  //onComponentWillRecieveProps
+  //for animations
+
+
   render() {
+    console.log('RENDERING')
     
     //set svg dimensions
     const svgDimensions = {
@@ -178,16 +180,16 @@ class TrucksPerHourChart extends Component {
     //max value from data
     const maxDataValue = Math.max(...truckCountsFromData.map(d => d.thisTotal))
 
+    //update scales
     const xScale = this.xScale
       .domain(data.map(d => d.hour))
       .range([this.state.margins.left, svgDimensions.width - this.state.margins.right])
-
     const yScale = this.yScale
       .domain([0, maxDataValue * 1.1])
       .range([svgDimensions.height - this.state.margins.bottom, this.state.margins.top])
 
+    //Make data-driven axis labels
     const axisLabels = this.state.labels.map((each) => {
-
       return <AxisLabel
         key={each.text}
         xPos={this.calcXPos(each.type, svgDimensions)}
@@ -199,6 +201,8 @@ class TrucksPerHourChart extends Component {
       />
     })
 
+
+    //make alert image 
     const alertImg = (this.state.showAlert === true) ? <image xlinkHref={alertImageImport} x="25" y="25" height="50px" width="50px"/> : null;
 
     let thisStyleObj = {
@@ -214,6 +218,11 @@ class TrucksPerHourChart extends Component {
       y: this.state.alertLevel
     };
 
+    //setup 'clicked bar details'
+    const clickedDetails = (this.state.boldText) 
+    ? <text className="clickedDetails">{this.state.boldText}: {this.state.normText}</text>
+    : null
+
     return (
       <svg 
         style={thisStyleObj} >
@@ -225,6 +234,8 @@ class TrucksPerHourChart extends Component {
           margins={this.state.margins}
           svgDimensions={svgDimensions}
         />
+
+        {clickedDetails}
         
         <Bars
           scales={{ xScale, yScale }}
@@ -232,6 +243,8 @@ class TrucksPerHourChart extends Component {
           data={data}
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
+          mousedOver={this.mousedOver}
+          showBarDetails={this.showingBarDetails}
         />
 
         <Line
