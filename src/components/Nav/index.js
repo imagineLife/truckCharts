@@ -6,8 +6,6 @@ import chartsImg from '../../imgs/charts.png'
 import dashboardImg from '../../imgs/dash.ico'
 
 export default function Nav() {
-	//Help update this specific navLink text to change when signed-in-or-not :) 
-
 //array of Objects,
 //these are properties of each NavLink below	
 	const navLinkArray = [
