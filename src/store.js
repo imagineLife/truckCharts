@@ -9,11 +9,12 @@ const initialState = {
 };
 
 const chartAlertsReducer = function(state=initialState, action){
-	if(action.type === 'updateAlertLevels'){
+	if(action.type === 'updateFromSettings'){
 		state = Object.assign({}, ...state, {
-			tphLimit: action.payload.tphLimit,
-			mpfLimit: action.payload.mpfLimit,
-			historicalRange: action.payload.historicalRange
+			tphLimit: action.payload.alerts.tphLimit,
+			mpfLimit: action.payload.alerts.mpfLimit,
+			historicalRange: action.payload.alerts.historicalRange,
+			commodities: action.payload.commodities
 		})
 	}
 

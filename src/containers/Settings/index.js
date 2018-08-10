@@ -14,6 +14,7 @@ export class Settings extends React.Component {
         mpfLimit: '',
         historicalRange: ''
       },
+      commodities: '',
       submittedForm:false
     }
     
@@ -26,9 +27,15 @@ export class Settings extends React.Component {
     console.log('updatingFormVal!!')
     let idVal = e.target.id
     console.log(`idVal ${idVal}`)
-    let curAlerts = this.state.alerts
-    curAlerts[idVal] = e.target.value
-    this.setState({alerts: curAlerts})
+
+    if (idVal == 'commodityPicker'){
+        this.setState({commodities: e.target.value})
+    }else{
+      let curAlerts = this.state.alerts
+      curAlerts[idVal] = e.target.value
+      this.setState({alerts: curAlerts})
+    }
+    
   }
 
   submitForm(e){
@@ -39,8 +46,8 @@ export class Settings extends React.Component {
 
   render(){
 
-    console.log('rendering state.alerts')
-    console.log(this.state.alerts)
+    console.log('rendering state')
+    console.log(this.state)
 
     if(this.state.submittedForm){
       return(
@@ -51,34 +58,36 @@ export class Settings extends React.Component {
         <div className="settingsWrapper">
           <div className="headerSpacer"></div>
           
-          <h2> Charts Alert-Levels Settings</h2>
+          <h2>Alert me when...</h2>
             
             <form className="settingsForm">
 
-              <label className="settingsLabel" htmlFor="mpfLimit">Maximum Facility Minutes Alert:
-                <input 
-                    className="settingsInput" 
+              <label className="settingsLabel" htmlFor="mpfLimit">Trucks take longer than  
+                <input
+                    className="settingsInput"
                     id="mpfLimit" 
                     name="mpfLimit" 
                     value={this.state.alerts.mpfLimit}
                     onChange={this.updateFormVal}
                   />
+                  minutes in the facility
               </label>
 
-              <label className="settingsLabel" htmlFor="tphLimit">Minimum Trucks Per Hour Alert:
+              <label className="settingsLabel" htmlFor="tphLimit">There are less than 
                 <input 
-                  className="settingsInput" 
+                  className="settingsInput"
                   id="tphLimit" 
                   name="tphLimit" 
                   value={this.state.alerts.tphLimit} 
                   onChange={this.updateFormVal}
                 />
+                trucks per hour
               </label>
 
               <label 
                 className="settingsLabel" 
                 htmlFor="historicalRange"
-              >Historical Comparison Line Time-Range:
+              >Show historical hourly data for 
                 
                 <select className="dd-wrapper" 
                     id="historicalRange" 
@@ -87,6 +96,23 @@ export class Settings extends React.Component {
                     <option className="dd-list-item" value="0"></option>
                     <option className="dd-list-item" onSelect={this.updateFormVal} value="1">Yesterday</option>
                     <option className="dd-list-item" onSelect={this.updateFormVal} value="2">Last Week Averages</option>
+                </select>
+
+              </label>
+
+              <label 
+                className="settingsLabel" 
+                htmlFor="historicalRange"
+              >Show commodities:
+                
+                <select className="dd-wrapper" 
+                    id="commodityPicker" 
+                    name="commodityPicker"
+                    onChange={this.updateFormVal} >
+                    <option className="dd-list-item" value="0"></option>
+                    <option className="dd-list-item" onSelect={this.updateFormVal} value="SB">SB</option>
+                    <option className="dd-list-item" onSelect={this.updateFormVal} value="YC">YC</option>
+                    <option className="dd-list-item" onSelect={this.updateFormVal} value="BOTH">Both</option>
                 </select>
 
               </label>
