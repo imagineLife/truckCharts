@@ -6,9 +6,34 @@ export default function Bars(props) {
     let colorScale = scaleOrdinal()
       .range(['steelblue', 'green']);
 
-    const { scales, margins, data, svgDimensions } = props
+    const { scales, margins, data, svgDimensions, alertLevel } = props
     const { xScale, yScale } = scales
     const { height } = svgDimensions
+
+    //calculate bar border based on data above/below threshold
+    const calcStroke = (d) => {
+      if(d.thisHourTotalTrucks < props.alertLevel){
+        return 'red'
+      }else{
+        return 'gray'
+      }
+    }
+
+    const calcLessStrokeWidth = (d) => {
+      if(d.thisHourTotalTrucks < props.alertLevel){
+        return '5px'
+      }else{
+        return '1px'
+      }
+    }
+
+    const calcMoreStrokeWidth = (d) => {
+      if(d.thisHourTotalTrucks < props.alertLevel){
+        return '5px'
+      }else{
+        return '1px'
+      }
+    }
 
     const bars = (
       data.map(barData => {
@@ -29,10 +54,10 @@ export default function Bars(props) {
               height={height - margins.bottom - scales.yScale(totalTruckCountThisHour)}
               width={xScale.bandwidth() * .75}
               fill={'cadetblue'}
-              stroke={'gray'}
+              stroke={calcStroke(barData)}
+              strokeWidth={calcLessStrokeWidth(barData)}
               onClick={() => props.showBarDetails(barData)}
               onMouseOver={() => props.mousedOver(barData)}
-              // fill={'rgba(255,255,255,.5)'}
             />
           )
         }else{
@@ -44,10 +69,11 @@ export default function Bars(props) {
               height={height - margins.bottom - scales.yScale(barData.minutes)}
               width={xScale.bandwidth()}
               fill={colorScale(barData.commodity)}
+              stroke={calcStroke(barData)}
+              strokeWidth={calcMoreStrokeWidth(barData)}
               onClick={() => props.showBarDetails(barData)}
               onMouseOver={() => props.mousedOver(barData)}
               stroke={'gray'}
-              // fill={'rgba(255,255,255,.5)'}
             />
           )
         }
