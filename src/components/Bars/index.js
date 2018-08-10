@@ -6,14 +6,22 @@ export default function Bars(props) {
     let colorScale = scaleOrdinal()
       .range(['steelblue', 'green']);
 
-    const { scales, margins, data, svgDimensions, alertLevel } = props
+    const { scales, margins, data, svgDimensions } = props
     const { xScale, yScale } = scales
     const { height } = svgDimensions
 
     //calculate bar border based on data above/below threshold
-    const calcStroke = (d) => {
+    const calcLessStroke = (d) => {
       if(d.thisHourTotalTrucks < props.alertLevel){
-        return 'red'
+        return 'rgb(190,0,22)'
+      }else{
+        return 'gray'
+      }
+    }
+
+    const calcMoreStroke = (d) => {
+      if(d.minutes > props.alertLevel){
+        return 'rgb(190,0,22)'
       }else{
         return 'gray'
       }
@@ -28,7 +36,7 @@ export default function Bars(props) {
     }
 
     const calcMoreStrokeWidth = (d) => {
-      if(d.thisHourTotalTrucks < props.alertLevel){
+      if(d.minutes > props.alertLevel){
         return '5px'
       }else{
         return '1px'
@@ -54,7 +62,7 @@ export default function Bars(props) {
               height={height - margins.bottom - scales.yScale(totalTruckCountThisHour)}
               width={xScale.bandwidth() * .75}
               fill={'cadetblue'}
-              stroke={calcStroke(barData)}
+              stroke={calcLessStroke(barData)}
               strokeWidth={calcLessStrokeWidth(barData)}
               onClick={() => props.showBarDetails(barData)}
               onMouseOver={() => props.mousedOver(barData)}
@@ -69,11 +77,10 @@ export default function Bars(props) {
               height={height - margins.bottom - scales.yScale(barData.minutes)}
               width={xScale.bandwidth()}
               fill={colorScale(barData.commodity)}
-              stroke={calcStroke(barData)}
+              stroke={calcMoreStroke(barData)}
               strokeWidth={calcMoreStrokeWidth(barData)}
               onClick={() => props.showBarDetails(barData)}
               onMouseOver={() => props.mousedOver(barData)}
-              stroke={'gray'}
             />
           )
         }
