@@ -130,9 +130,6 @@ class TruckTimeInFacility extends Component {
     //Update redux state
     if( thisChartAlertStatus !== isThisChartAlertInReduxStore){
       let thisChart = (thisChartAlertStatus) ? thisChartName : ''
-      console.log('dispatching this chart... ')
-      console.log(thisChart)
-      console.log('- - - - -')
       this.props.dispatch({
         type: 'setContainerAlertState', 
         payload: {
@@ -150,10 +147,10 @@ class TruckTimeInFacility extends Component {
 
   render() {
 
-    // let dataCommodities = [
-    //   {name: 'YC', color: 'steelblue'},
-    //   {name: 'SB', color: 'green'}
-    // ];
+    let dataCommodities = [
+      {name: 'YC', color: 'steelblue'},
+      {name: 'SB', color: 'green'}
+    ];
     
     //set svg dimensions
     const svgDimensions = {
@@ -172,21 +169,34 @@ class TruckTimeInFacility extends Component {
       .domain([0, maxDataValue*1.1])
       .range([svgDimensions.height - this.state.margins.bottom, this.state.margins.top])
 
-    // const legendItems = dataCommodities.map((dc, i) => {
-    //   let circleX = (i + 1) * 50; 
-    //   let circleY = (i + 1) - 50; 
-    //   let textY = (i + 1) - 150; 
+    const legendItems = dataCommodities.map((dc, i) => {
+      let thisI = i+1;
+      let circleX = (thisI * 75); 
+      let circleY = svgDimensions.height - 35; 
+      let textX = (thisI * 75) + 20; 
+      let textY = svgDimensions.height - 35; 
+        return(
+            <g className="legendItem" key={dc.name}>
+              <circle 
+                className="legendCircle" 
+                cx={circleX} 
+                cy={circleY} 
+                x={circleX} 
+                y={circleY} 
+                r="15" 
+                strokeWidth="3" 
+                fill={dc.color}>
+              </circle>
+              <text 
+                key={dc.name}
+                x={textX} 
+                y={textY + 5} 
+                className='legendItem' 
+                fill='black' >= {dc.name}</text>
+            </g>
+          )
+    })
 
-    //     return(
-    //         <g className="legendItem" key={dc.name}>
-    //           <circle cx="50" cy="50" x={thisXval} y='-50' r="15" strokeWidth="3" fill={dc.color}></circle>
-    //           <text key={dc.name} x={thisXval} y='-50' className='legendItem' fill='black' >{dc.name}</text>
-    //         </g>
-    //       )
-    // })
-
-    // console.log('legendItems')
-    // console.log(legendItems)
     const axisLabels = this.state.labels.map((each) => {
 
       return <AxisLabel
@@ -249,6 +259,8 @@ class TruckTimeInFacility extends Component {
         />
 
         {axisLabels}
+
+        {legendItems}
 
 
       </svg>
