@@ -10,6 +10,7 @@ import AlertLine from '../AlertLine'
 import './style.css';
 import { connect } from 'react-redux';
 import alertImageImport from '../../imgs/alert.ico'
+import { Redirect } from 'react-router-dom';
 
 class TruckTimeInFacility extends Component {
   constructor() {
@@ -42,10 +43,14 @@ class TruckTimeInFacility extends Component {
         // },
       ],
       margins : { top: 75, right: 20, bottom: 100, left: 60 },
-      alertLevel: 45
+      alertLevel: 45,
+      filteredData: [],
+      selectedTruck: ''
     }
 
     this.calculateChartAlertStatus = this.calculateChartAlertStatus.bind(this);    
+    this.filterByCommodity = this.filterByCommodity.bind(this);  
+    this.redirectToBarPage = this.redirectToBarPage.bind(this);  
   }
 
   calcXPos(string, dims){
@@ -75,9 +80,12 @@ class TruckTimeInFacility extends Component {
     console.log(data)
   }
 
-  showingBarDetails(data){
-    console.log('CLICKED!')
-    console.log(data)
+  redirectToBarPage(data){
+    console.log('CLICKED! in TTIFC')
+    console.log(data.truckID)
+    this.setState({
+      selectedTruck: data.truckID
+    })
   }
 
 
@@ -138,6 +146,22 @@ class TruckTimeInFacility extends Component {
         }
       })      
     }
+
+    if(this.state.filteredData !== data && this.state.filteredData !== []){
+      console.log('setting local state filtered data')
+      this.setState({filteredData: data})
+    }
+
+    if(this.props.storeVals.commodities && this.props.storeVals.commodities !== 'BOTH'){
+      
+      console.log('ARE store commodities')
+      
+      if (this.state.filteredData.length < 1 || this.state.filteredData === data ){
+              console.log('need to filter') 
+          let thisFilteredData = data.filter(this.filterByCommodity)
+          this.setState({filteredData: thisFilteredData})
+      }
+    }
     
 
     //set container state to show alert on chart
@@ -145,10 +169,25 @@ class TruckTimeInFacility extends Component {
 
   }
 
+  filterByCommodity(item){
+    let chosenComm = this.props.storeVals.commodities;
+    if(item.commodity === chosenComm){
+      return item
+    }
+  }
+
   render() {
 
+    //if selected a truck, redirect
+    if(this.state.selectedTruck){
+      let text = `/singleTruck/${this.state.selectedTruck}`;
+     return(
+      <Redirect to={text} />
+      )
+    }
+
     let dataCommodities = [
-      {name: 'YC', color: 'steelblue'},
+      {name: 'YC', color: 'cadetblue'},
       {name: 'SB', color: 'green'}
     ];
     
@@ -159,10 +198,10 @@ class TruckTimeInFacility extends Component {
     }
 
     //max value from data
-    const maxDataValue = Math.max(...data.map(d => d.minutes))
+    const maxDataValue = Math.max(...this.state.filteredData.map(d => d.minutes))
 
     const xScale = this.xScale
-      .domain(data.map(d => d.truckID))
+      .domain(this.state.filteredData.map(d => d.truckID))
       .range([this.state.margins.left, svgDimensions.width - this.state.margins.right])
 
     const yScale = this.yScale
@@ -171,9 +210,9 @@ class TruckTimeInFacility extends Component {
 
     const legendItems = dataCommodities.map((dc, i) => {
       let thisI = i+1;
-      let circleX = (thisI * 75); 
+      let circleX = (thisI * 100); 
       let circleY = svgDimensions.height - 35; 
-      let textX = (thisI * 75) + 20; 
+      let textX = (thisI * 100) + 20; 
       let textY = svgDimensions.height - 35; 
         return(
             <g className="legendItem" key={dc.name}>
@@ -196,6 +235,8 @@ class TruckTimeInFacility extends Component {
             </g>
           )
     })
+
+    const tooltip = <div className="toolTip">Test tooltip</div>
 
     const axisLabels = this.state.labels.map((each) => {
 
@@ -228,6 +269,8 @@ class TruckTimeInFacility extends Component {
       y: this.state.alertLevel
     };
 
+
+
     return (
       <svg 
         style={thisStyleObj} >
@@ -243,12 +286,12 @@ class TruckTimeInFacility extends Component {
         <Bars
           scales={{ xScale, yScale }}
           margins={this.state.margins}
-          data={data}
+          data={this.state.filteredData}
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
           mousedOver={this.mousedOver}
           alertLevel={this.state.alertLevel}
-          showBarDetails={this.showingBarDetails}
+          showBarDetails={this.redirectToBarPage}
         />
 
         <AlertLine
@@ -259,6 +302,8 @@ class TruckTimeInFacility extends Component {
         />
 
         {axisLabels}
+
+        {tooltip}
 
         {legendItems}
 
