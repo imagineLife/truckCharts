@@ -164,21 +164,24 @@ class TrucksPerHourChart extends Component {
     }
 
 
-    //Get max truck-count values from data
-    const truckCountsFromData = [];
-    data.map((d,i) => {
+    //add thisHourTotalTrucks to each data element
+    data.map((d, i) => {
       let theseTrucks = d.trucks;
-      let thisTruckTotal = 0;
-      return theseTrucks.forEach((t) => {
-        thisTruckTotal += t.truckCount;
-        let thisObj = {ind: i, thisTotal: thisTruckTotal}
-        truckCountsFromData.push(thisObj)
+      let totalTrucks = 0;
 
+      theseTrucks.forEach((t, i) => {
+        totalTrucks += t.truckCount;
       })
+
+      d.thisHourTotalTrucks = totalTrucks;
+      return true;
     })
 
+    console.log('after looping, data')
+    console.log(data)
+
     //max value from data
-    const maxDataValue = Math.max(...truckCountsFromData.map(d => d.thisTotal))
+    const maxDataValue = Math.max(...data.map(d => d.thisHourTotalTrucks))
 
     //update scales
     const xScale = this.xScale
