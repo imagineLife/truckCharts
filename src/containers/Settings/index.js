@@ -24,11 +24,9 @@ export class Settings extends React.Component {
   }
 
   updateFormVal(e){
-    console.log('updatingFormVal!!')
     let idVal = e.target.id
-    console.log(`idVal ${idVal}`)
 
-    if (idVal == 'commodityPicker'){
+    if (idVal === 'commodityPicker'){
         this.setState({commodities: e.target.value})
     }else{
       let curAlerts = this.state.alerts
@@ -40,7 +38,7 @@ export class Settings extends React.Component {
 
   submitForm(e){
     e.preventDefault();
-    this.props.dispatch({type: 'updateAlertLevels', payload: this.state.alerts})
+    this.props.dispatch({type: 'updateFromSettings', payload: this.state})
     this.setState({submittedForm: true})
   }
 
