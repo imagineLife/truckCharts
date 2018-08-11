@@ -154,7 +154,7 @@ class TruckTimeInFacility extends Component {
 
     if(this.props.storeVals.commodities && this.props.storeVals.commodities !== 'BOTH'){
       
-      console.log('ARE store commodities')
+      console.log('there ARE redux store set commodities')
       
       if (this.state.filteredData.length < 1 || this.state.filteredData === data ){
               console.log('need to filter') 
@@ -203,6 +203,7 @@ class TruckTimeInFacility extends Component {
     const xScale = this.xScale
       .domain(this.state.filteredData.map(d => d.truckID))
       .range([this.state.margins.left, svgDimensions.width - this.state.margins.right])
+
 
     const yScale = this.yScale
       .domain([0, maxDataValue*1.1])
