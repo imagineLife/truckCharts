@@ -6,6 +6,9 @@ export default class AlertLine extends Component {
     const { scales, lineVals } = this.props //
     const { xScale, yScale } = scales
 
+    let firstXScale = xScale.domain()[0];
+    let lastXScale = xScale.domain()[xScale.domain().length - 1];
+
     const thisLine = (
       <line
         fill={'none'}
@@ -13,15 +16,22 @@ export default class AlertLine extends Component {
         strokeDasharray={'4 0 4'}
         strokeWidth={3}
         className={'alertLine'}
-        x1={xScale(lineVals.x1)}
-        x2={xScale(lineVals.x2)+ ( xScale.bandwidth() * .75 ) }
+        x1={xScale(firstXScale)}
+        x2={xScale(lastXScale)+ ( xScale.bandwidth() * .75 ) }
         y1={yScale(lineVals.y)}
         y2={yScale(lineVals.y)}        
       />
     )
 
-    return (
-      <g className='gWrapper'>{thisLine}</g>
-    )
+    if(firstXScale !== undefined){
+      return (
+        <g className='gWrapper'>{thisLine}</g>
+      )  
+    }else{
+      return(
+          <g className='gWrapper'>{thisLine}</g>
+        )
+    }
+    
   }
 }
