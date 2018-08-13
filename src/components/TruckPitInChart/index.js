@@ -76,19 +76,6 @@ class TruckPitInChart extends Component {
 
   }
 
-  mousedOver(e, data){
-    console.log('moused e')
-    console.log(e)
-
-    // const pageX=d3.event.pageX;
-    // console.log('moused pagex')
-    // console.log(pageX)
-
-    // console.log('MOUSED OVER running!!!')
-    // console.log(data)
-    // this.setState({toolTipDisplay: 'inline-block'})
-  }
-
   render() {
    
     //set svg dimensions
@@ -179,7 +166,6 @@ class TruckPitInChart extends Component {
           commods={this.state.filteredCommodity}
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
-          mousedOver={(e) => this.mousedOver(e)}
           showBarDetails={this.redirectToBarPage}
         />
 
