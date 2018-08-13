@@ -10,6 +10,14 @@
 	opacity: 1;
 }
 
+.truckChartH2{
+	font-size: 28px;
+	text-align: left;
+	font-weight: normal;
+	margin: 0 0 10px 0;
+	height: 35px;
+}
+
 section {
 	background-color: transparent;
 }
