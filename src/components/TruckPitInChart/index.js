@@ -6,10 +6,8 @@ import AxisLabel from '../AxisLabel'
 import AxesAndMath from '../Axes'
 import Bars from '../Bars'
 import ResponsiveWrapper from '../ResponsiveWrapper'
-import AlertLine from '../AlertLine'
 import './style.css';
 import { connect } from 'react-redux';
-import alertImageImport from '../../imgs/alert.ico'
 import { Redirect } from 'react-router-dom';
 import * as d3 from 'd3-selection'
 
@@ -44,7 +42,6 @@ class TruckTimeInFacility extends Component {
         // },
       ],
       margins : { top: 75, right: 20, bottom: 100, left: 60 },
-      alertLevel: 45,
       filteredData: [],
       selectedTruck: '',
       filteredCommodity: [
@@ -54,7 +51,6 @@ class TruckTimeInFacility extends Component {
       toolTipDisplay: 'none'
     }
 
-    this.calculateChartAlertStatus = this.calculateChartAlertStatus.bind(this);    
     this.filterByCommodity = this.filterByCommodity.bind(this);  
     this.redirectToBarPage = this.redirectToBarPage.bind(this);  
     this.mousedOver = this.mousedOver.bind(this);  
@@ -113,34 +109,11 @@ class TruckTimeInFacility extends Component {
     })
   }
 
-
-  calculateChartAlertStatus(alertNumber,trucks){
-    
-    let isHigherThanAlert = false;
-
-    trucks.some(t => {
-      let totalMins = t.minutes
-    
-      if(totalMins > this.state.alertLevel){
-        isHigherThanAlert =  true;
-        return true;
-      }
-      return false;
-    })
-
-    return isHigherThanAlert;
-  }
-
   componentWillMount(){
     
     //grab vals from store & state
     let storePropsTphLimit = this.props.storeVals.mpfLimit;
-    let curAlertLevel = this.state.alertLevel;
     
-    //set state alertLevel val if not net
-    if(curAlertLevel !== storePropsTphLimit && storePropsTphLimit > 0){
-       this.setState({alertLevel: storePropsTphLimit})
-    }
   }
 
   //IF the alert line was set in settings, update chart
@@ -149,28 +122,6 @@ class TruckTimeInFacility extends Component {
   componentDidMount(){
 
     let thisChartName = 'Minutes In the Facility Per Truck';
-
-    //make an 'alertStatus' true/false
-    let thisChartAlertStatus = this.calculateChartAlertStatus(this.state.alertLevel, data)
-
-
-    //see if this chart alert is in redux Store,
-    let isThisChartAlertInReduxStore = (this.props.storeVals.alertedCharts) 
-      ? this.props.storeVals.alertedCharts.includes(thisChartName)
-      : false;
-
-    //IF component alert & redux alert dont match
-    //Update redux state
-    if( thisChartAlertStatus !== isThisChartAlertInReduxStore){
-      let thisChart = (thisChartAlertStatus) ? thisChartName : ''
-      this.props.dispatch({
-        type: 'setContainerAlertState', 
-        payload: {
-          chartAlertStatuses: thisChartAlertStatus,
-          alertedCharts: thisChart
-        }
-      })      
-    }
 
     //set Redux data to local 'filteredData' state value
     if(this.state.filteredData !== data && this.state.filteredData !== []){
@@ -192,10 +143,6 @@ class TruckTimeInFacility extends Component {
           })
       }
     }
-    
-
-    //set container state to show alert on chart
-    this.setState({showAlert: thisChartAlertStatus})
 
   }
 
@@ -286,29 +233,18 @@ class TruckTimeInFacility extends Component {
     })
 
 
-    const alertImg = (this.state.showAlert === true) ? <image xlinkHref={alertImageImport} x="25" y="25" height="50px" width="50px"/> : null;
 
     let thisStyleObj = {
       'width': svgDimensions.width,
-      'height' : svgDimensions.height,
+      'height' : 115,
       // 'marginTop': '125px',
       'class': 'trucksPerHourSVG'
     }
-
-    //Alert line values
-    let lineVals = {
-      x1: 212,
-      x2: 653,
-      y: this.state.alertLevel
-    };
-
 
 
     return (
       <svg 
         style={thisStyleObj} >
-
-        {alertImg}
 
         <AxesAndMath
           scales={{ xScale, yScale }}
@@ -324,15 +260,7 @@ class TruckTimeInFacility extends Component {
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
           mousedOver={(e) => this.mousedOver(e)}
-          alertLevel={this.state.alertLevel}
           showBarDetails={this.redirectToBarPage}
-        />
-
-        <AlertLine
-          scales={{ xScale, yScale }}
-          margins={this.state.margins}
-          lineVals={lineVals}
-          svgDimensions={svgDimensions}
         />
 
         {axisLabels}
