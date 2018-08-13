@@ -77,6 +77,9 @@ export class Dashboard extends React.Component {
           {sections[5]}
         </div>
 
+        <div className="footerSpacer"></div>
+
+
       </main>
     );
   
