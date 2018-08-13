@@ -11,12 +11,11 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as d3 from 'd3-selection'
 
-class TruckTimeInFacility extends Component {
+class TruckPitInChart extends Component {
   constructor() {
     super()
     this.xScale = scaleBand().padding(0.2)
     this.yScale = scaleLinear()
-    this.calcXPos = this.calcXPos.bind(this)
     this.state = {
       labels: [
         { 
@@ -28,7 +27,7 @@ class TruckTimeInFacility extends Component {
         }, 
         {
           type: 'y',
-          text : 'Minutes In Facility',
+          text : 'minutes',
           textClass : 'yAxisLabelText',
           gWrapperClass : 'yAxisLabelG',
           transformation: 'rotate(-90)'
@@ -50,15 +49,11 @@ class TruckTimeInFacility extends Component {
       ],
       toolTipDisplay: 'none'
     }
-
-    this.filterByCommodity = this.filterByCommodity.bind(this);  
-    this.redirectToBarPage = this.redirectToBarPage.bind(this);  
-    this.mousedOver = this.mousedOver.bind(this);  
   }
 
   calcXPos(string, dims){
     if(string.indexOf('y') > -1){
-      return -(dims.height / 2)
+      return -(dims.height / 2.75)
     }else if(string.indexOf('c') > -1){
       return (dims.width / 2)
     }else{
@@ -91,82 +86,12 @@ class TruckTimeInFacility extends Component {
     // this.setState({toolTipDisplay: 'inline-block'})
   }
 
-  redirectToBarPage(data){
-    console.log('CLICKED! in TTIFC')
-    console.log(data)
-    //dispatch to redux
-      this.props.dispatch({
-        type: 'setSingleTruckDetails', 
-        payload: {
-          truckID: data.truckID,
-          minutes: data.minutes,
-          commodity: data.commodity
-        }
-      })
-
-    this.setState({
-      selectedTruck: data.truckID
-    })
-  }
-
-  componentWillMount(){
-    
-    //grab vals from store & state
-    let storePropsTphLimit = this.props.storeVals.mpfLimit;
-    
-  }
-
-  //IF the alert line was set in settings, update chart
-  //IF redux & local alert status are different,
-  // update the redux store with this alert status
-  componentDidMount(){
-
-    let thisChartName = 'Minutes In the Facility Per Truck';
-
-    //set Redux data to local 'filteredData' state value
-    if(this.state.filteredData !== data && this.state.filteredData !== []){
-      // console.log('setting local state filtered data')
-      this.setState({filteredData: data})
-    }
-
-    //if settings page filtered the data
-    if(this.props.storeVals.commodities && this.props.storeVals.commodities !== 'BOTH'){
-      
-      // console.log('there ARE redux store set commodities')
-      
-      if (this.state.filteredData.length < 1 || this.state.filteredData === data ){
-          let thisFilteredData = data.filter(this.filterByCommodity)
-          let thisColor = (thisFilteredData[0].commodity === 'YC') ? 'cadetblue' : 'green'
-          this.setState({
-            filteredData: thisFilteredData,
-            filteredCommodity: [{ name: thisFilteredData[0].commodity, color: thisColor }]
-          })
-      }
-    }
-
-  }
-
-  filterByCommodity(item){
-    let chosenComm = this.props.storeVals.commodities;
-    if(item.commodity === chosenComm){
-      return item
-    }
-  }
-
   render() {
-
-    //if selected a truck, redirect
-    if(this.state.selectedTruck){
-      let text = `/singleTruck/${this.state.selectedTruck}`;
-     return(
-      <Redirect to={text} />
-      )
-    }
-    
+   
     //set svg dimensions
     const svgDimensions = {
       width: Math.max(this.props.parentWidth, 300),
-      height: 550
+      height: 120
     }
 
     //max value from data
@@ -178,8 +103,8 @@ class TruckTimeInFacility extends Component {
 
 
     const yScale = this.yScale
-      .domain([0, maxDataValue*1.1])
-      .range([svgDimensions.height - this.state.margins.bottom, this.state.margins.top])
+      .domain([0, 60])
+      .range([this.state.margins.top, svgDimensions.height - this.state.margins.bottom])
 
     const legendItems = this.state.filteredCommodity.map((dc, i) => {
 
@@ -196,7 +121,7 @@ class TruckTimeInFacility extends Component {
                 cy={circleY} 
                 x={circleX} 
                 y={circleY} 
-                r="15" 
+                r="5" 
                 strokeWidth="3" 
                 fill={dc.color}>
               </circle>
@@ -209,14 +134,6 @@ class TruckTimeInFacility extends Component {
             </g>
           )
     })
-
-    let toolTipStyle = {
-      'display': this.state.toolTipDisplay,
-      'left': (this.state.toolTipDisplay === 'inline-block') ? d3.event.pageX - 150+'px' : 0,
-      'top': (this.state.toolTipDisplay === 'inline-block') ? d3.event.pageY - 200+'px' : 0,
-    }
-
-    const tooltip = <div className="toolTip" style={toolTipStyle}>Test tooltip</div>
 
     const axisLabels = this.state.labels.map((each) => {
 
@@ -265,8 +182,6 @@ class TruckTimeInFacility extends Component {
 
         {axisLabels}
 
-        {tooltip}
-
         {legendItems}
 
 
@@ -277,4 +192,4 @@ class TruckTimeInFacility extends Component {
 
 const mapStateToProps = state => ({ storeVals: state })
 
-export default ResponsiveWrapper(connect(mapStateToProps)(TruckTimeInFacility))
+export default ResponsiveWrapper(connect(mapStateToProps)(TruckPitInChart))
