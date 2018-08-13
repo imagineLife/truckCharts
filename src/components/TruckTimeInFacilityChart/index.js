@@ -92,8 +92,8 @@ class TruckTimeInFacility extends Component {
         type: 'setSingleTruckDetails', 
         payload: {
           truckID: data.truckID,
-          commodity: data.minutes,
-          minutes: data.commodity
+          minutes: data.minutes,
+          commodity: data.commodity
         }
       })
 
