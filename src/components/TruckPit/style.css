@@ -1,5 +1,13 @@
-.truckPit{
-	
+.cornerClicker{
+	display: inline;
+	position: absolute;
+	top:0;
+	right: 0;
+	opacity: 0;
+}
+
+.cornerClicker:hover{
+	opacity: 1;
 }
 
 section {
