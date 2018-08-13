@@ -1,6 +1,6 @@
 .Axis path,
 .Axis line {
-  stroke: rgb(140,140,140);
+  stroke: none;
 }
 
 .Axis text, .Axis-Bottom text {
