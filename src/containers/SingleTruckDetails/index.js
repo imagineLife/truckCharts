@@ -49,9 +49,14 @@ export class SingleTruckDetails extends React.Component {
     console.log('SINGLE TRUCK rendering props')
     console.log(this.props)
 
-    if(this.state.submittedForm){
+    if(this.props.truckID){
       return(
-        <Redirect to='/dashboard' />
+        <div className="singleTruckDetailsDiv">
+        <div className="headerSpacer"></div>
+          <p><b>TRUCK ID:</b> {this.props.truckID}</p>
+          <p><b>COMMODITY:</b> {this.props.commodity}</p>
+          <p><b>FACILITY MINUTES:</b> {this.props.minutes}</p>
+        </div>      
       )
     }else{
       return (
