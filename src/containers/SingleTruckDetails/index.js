@@ -3,7 +3,7 @@ import './settings.css'
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-export class Settings extends React.Component {
+export class SingleTruckDetails extends React.Component {
 
   constructor(props){
     super(props)
@@ -67,4 +67,4 @@ export class Settings extends React.Component {
 
 const mapStateToProps = state => ({storeAlerts: state})
 
-export default connect(mapStateToProps)(Settings);
+export default connect(mapStateToProps)(SingleTruckDetails);
