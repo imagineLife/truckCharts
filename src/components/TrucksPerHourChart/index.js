@@ -51,7 +51,7 @@ class TrucksPerHourChart extends Component {
       historicalDataSource: yesterdayData,
       showAlert: false,
       stackedElementKeys: '',
-      numberOfStackedPieces: 0
+      numberOfStackedPieces: 2
     }
 
     this.calculateAlertStatus = this.calculateAlertStatus.bind(this);
@@ -178,7 +178,7 @@ class TrucksPerHourChart extends Component {
     }
 
 
-    //add thisHourTotalTrucks to each data element
+    //add totalOfThisBar to each data element
     data.map((d, i) => {
       let theseTrucks = d.trucks;
       let totalTrucks = 0;
@@ -187,12 +187,27 @@ class TrucksPerHourChart extends Component {
         totalTrucks += t.truckCount;
       })
 
-      d.thisHourTotalTrucks = totalTrucks;
+      d.totalOfThisBar = totalTrucks;
+
+      let singleBarTotal = 0;
+      for (var val in d) {
+          if (d.hasOwnProperty(val)) {
+             let thisVal = d[val]
+             if (thisVal > 0) {
+              singleBarTotal += +thisVal;
+             }
+          }
+      }
+
+      //create noew key, total of each bar
+      if(d.totalOfThisBar > 0){ return}else{ 
+        d.totalOfThisBar =  singleBarTotal
+      };
       return true;
     })
 
     //max value from data
-    const maxDataValue = Math.max(...data.map(d => d.thisHourTotalTrucks))
+    const maxDataValue = Math.max(...data.map(d => d.totalOfThisBar))
 
     //update scales
     const xScale = this.xScale
