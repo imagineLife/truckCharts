@@ -11,6 +11,7 @@ import './style.css';
 import { connect } from 'react-redux';
 import alertImageImport from '../../imgs/alert.ico'
 import { Redirect } from 'react-router-dom';
+import * as d3 from 'd3-selection'
 
 class TruckTimeInFacility extends Component {
   constructor() {
@@ -49,12 +50,14 @@ class TruckTimeInFacility extends Component {
       filteredCommodity: [
         {name: 'YC', color: 'cadetblue'},
         {name: 'SB', color: 'green'}
-      ]
+      ],
+      toolTipDisplay: 'none'
     }
 
     this.calculateChartAlertStatus = this.calculateChartAlertStatus.bind(this);    
     this.filterByCommodity = this.filterByCommodity.bind(this);  
     this.redirectToBarPage = this.redirectToBarPage.bind(this);  
+    this.mousedOver = this.mousedOver.bind(this);  
   }
 
   calcXPos(string, dims){
@@ -79,9 +82,17 @@ class TruckTimeInFacility extends Component {
 
   }
 
-  mousedOver(data){
-    console.log('MOUSED OVER running!!!')
-    console.log(data)
+  mousedOver(e, data){
+    console.log('moused e')
+    console.log(e)
+
+    // const pageX=d3.event.pageX;
+    // console.log('moused pagex')
+    // console.log(pageX)
+
+    // console.log('MOUSED OVER running!!!')
+    // console.log(data)
+    // this.setState({toolTipDisplay: 'inline-block'})
   }
 
   redirectToBarPage(data){
@@ -252,7 +263,13 @@ class TruckTimeInFacility extends Component {
           )
     })
 
-    const tooltip = <div className="toolTip">Test tooltip</div>
+    let toolTipStyle = {
+      'display': this.state.toolTipDisplay,
+      'left': (this.state.toolTipDisplay === 'inline-block') ? d3.event.pageX - 150+'px' : 0,
+      'top': (this.state.toolTipDisplay === 'inline-block') ? d3.event.pageY - 200+'px' : 0,
+    }
+
+    const tooltip = <div className="toolTip" style={toolTipStyle}>Test tooltip</div>
 
     const axisLabels = this.state.labels.map((each) => {
 
@@ -306,7 +323,7 @@ class TruckTimeInFacility extends Component {
           commods={this.state.filteredCommodity}
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
-          mousedOver={this.mousedOver}
+          mousedOver={(e) => this.mousedOver(e)}
           alertLevel={this.state.alertLevel}
           showBarDetails={this.redirectToBarPage}
         />

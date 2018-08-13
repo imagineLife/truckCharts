@@ -50,7 +50,7 @@ class TrucksPerHourChart extends Component {
       todaysTruckData: data,
       historicalDataSource: yesterdayData,
       showAlert: false,
-      stackedElementKeys: '',
+      stackedElementKeys: ["hour", "YC", "SB"],
       numberOfStackedPieces: 2
     }
 
@@ -149,16 +149,6 @@ class TrucksPerHourChart extends Component {
 
     this.setState({showAlert: thisChartAlertStatus})
 
-    //stack data updates
-          //set stacked element keys
-      if(!this.state.stackedElementKeys){
-        // this.setState({stackedElementKeys: Object.keys(d)})  
-        console.log('NO STACKED DATA IN STATE')
-        console.log('this is data')
-        data.forEach(d => {
-          this.setState({stackedElementKeys: Object.keys(d)})
-        })
-      }
   }
 
 
@@ -206,6 +196,10 @@ class TrucksPerHourChart extends Component {
       return true;
     })
 
+    const stackRangeKeys = this.state.stackedElementKeys;
+    console.log('stackRangeKeys')
+    console.log(stackRangeKeys)
+    console.log('- - - -')
     //max value from data
     const maxDataValue = Math.max(...data.map(d => d.totalOfThisBar))
 
