@@ -29,7 +29,7 @@ export default class AlertLine extends Component {
       )  
     }else{
       return(
-          <g className='gWrapper'>{thisLine}</g>
+          <g className='gWrapper'></g>
         )
     }
     
