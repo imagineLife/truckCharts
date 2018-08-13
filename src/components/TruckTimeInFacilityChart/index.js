@@ -45,7 +45,11 @@ class TruckTimeInFacility extends Component {
       margins : { top: 75, right: 20, bottom: 100, left: 60 },
       alertLevel: 45,
       filteredData: [],
-      selectedTruck: ''
+      selectedTruck: '',
+      filteredCommodity: [
+        {name: 'YC', color: 'cadetblue'},
+        {name: 'SB', color: 'green'}
+      ]
     }
 
     this.calculateChartAlertStatus = this.calculateChartAlertStatus.bind(this);    
@@ -147,19 +151,24 @@ class TruckTimeInFacility extends Component {
       })      
     }
 
+    //set Redux data to local 'filteredData' state value
     if(this.state.filteredData !== data && this.state.filteredData !== []){
       console.log('setting local state filtered data')
       this.setState({filteredData: data})
     }
 
+    //if settings page filtered the data
     if(this.props.storeVals.commodities && this.props.storeVals.commodities !== 'BOTH'){
       
       console.log('there ARE redux store set commodities')
       
       if (this.state.filteredData.length < 1 || this.state.filteredData === data ){
-              console.log('need to filter') 
           let thisFilteredData = data.filter(this.filterByCommodity)
-          this.setState({filteredData: thisFilteredData})
+          let thisColor = (thisFilteredData[0].commodity === 'YC') ? 'cadetblue' : 'green'
+          this.setState({
+            filteredData: thisFilteredData,
+            filteredCommodity: [{ name: thisFilteredData[0].commodity, color: thisColor }]
+          })
       }
     }
     
@@ -185,11 +194,6 @@ class TruckTimeInFacility extends Component {
       <Redirect to={text} />
       )
     }
-
-    let dataCommodities = [
-      {name: 'YC', color: 'cadetblue'},
-      {name: 'SB', color: 'green'}
-    ];
     
     //set svg dimensions
     const svgDimensions = {
@@ -209,7 +213,8 @@ class TruckTimeInFacility extends Component {
       .domain([0, maxDataValue*1.1])
       .range([svgDimensions.height - this.state.margins.bottom, this.state.margins.top])
 
-    const legendItems = dataCommodities.map((dc, i) => {
+    const legendItems = this.state.filteredCommodity.map((dc, i) => {
+
       let thisI = i+1;
       let circleX = (thisI * 100); 
       let circleY = svgDimensions.height - 35; 
@@ -288,6 +293,7 @@ class TruckTimeInFacility extends Component {
           scales={{ xScale, yScale }}
           margins={this.state.margins}
           data={this.state.filteredData}
+          commods={this.state.filteredCommodity}
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
           mousedOver={this.mousedOver}
