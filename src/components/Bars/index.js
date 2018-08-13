@@ -10,15 +10,7 @@ export default function Bars(props) {
     const { xScale, yScale } = scales
     const { height } = svgDimensions
 
-    if (commods){
-      console.log('bar commods')
-      console.log(commods)
-
-      commods.map((c) => colorArr.push(c.color))
-
-      console.log('colorArr')
-      console.log(colorArr)
-      console.log('- - - - -')
+    if (commods){ commods.map((c) => colorArr.push(c.color))
     }else{
       colorArr = ['cadetblue', 'green']
     }
