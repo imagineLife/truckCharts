@@ -305,44 +305,10 @@ class TruckTimeInFacility extends Component {
 
 
     return (
-      <svg 
-        style={thisStyleObj} >
+      <div className="truckPit">
+        <h2>Trucks Today:</h2>
+      </div>
 
-        {alertImg}
-
-        <AxesAndMath
-          scales={{ xScale, yScale }}
-          margins={this.state.margins}
-          svgDimensions={svgDimensions}
-        />
-        
-        <Bars
-          scales={{ xScale, yScale }}
-          margins={this.state.margins}
-          data={this.state.filteredData}
-          commods={this.state.filteredCommodity}
-          maxValue={maxDataValue}
-          svgDimensions={svgDimensions}
-          mousedOver={(e) => this.mousedOver(e)}
-          alertLevel={this.state.alertLevel}
-          showBarDetails={this.redirectToBarPage}
-        />
-
-        <AlertLine
-          scales={{ xScale, yScale }}
-          margins={this.state.margins}
-          lineVals={lineVals}
-          svgDimensions={svgDimensions}
-        />
-
-        {axisLabels}
-
-        {tooltip}
-
-        {legendItems}
-
-
-      </svg>
     )
   }
 }
