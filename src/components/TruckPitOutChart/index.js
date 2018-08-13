@@ -6,19 +6,16 @@ import AxisLabel from '../AxisLabel'
 import AxesAndMath from '../Axes'
 import Bars from '../Bars'
 import ResponsiveWrapper from '../ResponsiveWrapper'
-import AlertLine from '../AlertLine'
 import './style.css';
 import { connect } from 'react-redux';
-import alertImageImport from '../../imgs/alert.ico'
 import { Redirect } from 'react-router-dom';
 import * as d3 from 'd3-selection'
 
-class TruckTimeInFacility extends Component {
+class TruckPitInChart extends Component {
   constructor() {
     super()
     this.xScale = scaleBand().padding(0.2)
     this.yScale = scaleLinear()
-    this.calcXPos = this.calcXPos.bind(this)
     this.state = {
       labels: [
         { 
@@ -30,7 +27,7 @@ class TruckTimeInFacility extends Component {
         }, 
         {
           type: 'y',
-          text : 'Minutes In Facility',
+          text : 'minutes',
           textClass : 'yAxisLabelText',
           gWrapperClass : 'yAxisLabelG',
           transformation: 'rotate(-90)'
@@ -44,7 +41,6 @@ class TruckTimeInFacility extends Component {
         // },
       ],
       margins : { top: 75, right: 20, bottom: 100, left: 60 },
-      alertLevel: 45,
       filteredData: [],
       selectedTruck: '',
       filteredCommodity: [
@@ -53,16 +49,11 @@ class TruckTimeInFacility extends Component {
       ],
       toolTipDisplay: 'none'
     }
-
-    this.calculateChartAlertStatus = this.calculateChartAlertStatus.bind(this);    
-    this.filterByCommodity = this.filterByCommodity.bind(this);  
-    this.redirectToBarPage = this.redirectToBarPage.bind(this);  
-    this.mousedOver = this.mousedOver.bind(this);  
   }
 
   calcXPos(string, dims){
     if(string.indexOf('y') > -1){
-      return -(dims.height / 2)
+      return -(dims.height / 2.75)
     }else if(string.indexOf('c') > -1){
       return (dims.width / 2)
     }else{
@@ -95,131 +86,12 @@ class TruckTimeInFacility extends Component {
     // this.setState({toolTipDisplay: 'inline-block'})
   }
 
-  redirectToBarPage(data){
-    console.log('CLICKED! in TTIFC')
-    console.log(data)
-    //dispatch to redux
-      this.props.dispatch({
-        type: 'setSingleTruckDetails', 
-        payload: {
-          truckID: data.truckID,
-          minutes: data.minutes,
-          commodity: data.commodity
-        }
-      })
-
-    this.setState({
-      selectedTruck: data.truckID
-    })
-  }
-
-
-  calculateChartAlertStatus(alertNumber,trucks){
-    
-    let isHigherThanAlert = false;
-
-    trucks.some(t => {
-      let totalMins = t.minutes
-    
-      if(totalMins > this.state.alertLevel){
-        isHigherThanAlert =  true;
-        return true;
-      }
-      return false;
-    })
-
-    return isHigherThanAlert;
-  }
-
-  componentWillMount(){
-    
-    //grab vals from store & state
-    let storePropsTphLimit = this.props.storeVals.mpfLimit;
-    let curAlertLevel = this.state.alertLevel;
-    
-    //set state alertLevel val if not net
-    if(curAlertLevel !== storePropsTphLimit && storePropsTphLimit > 0){
-       this.setState({alertLevel: storePropsTphLimit})
-    }
-  }
-
-  //IF the alert line was set in settings, update chart
-  //IF redux & local alert status are different,
-  // update the redux store with this alert status
-  componentDidMount(){
-
-    let thisChartName = 'Minutes In the Facility Per Truck';
-
-    //make an 'alertStatus' true/false
-    let thisChartAlertStatus = this.calculateChartAlertStatus(this.state.alertLevel, data)
-
-
-    //see if this chart alert is in redux Store,
-    let isThisChartAlertInReduxStore = (this.props.storeVals.alertedCharts) 
-      ? this.props.storeVals.alertedCharts.includes(thisChartName)
-      : false;
-
-    //IF component alert & redux alert dont match
-    //Update redux state
-    if( thisChartAlertStatus !== isThisChartAlertInReduxStore){
-      let thisChart = (thisChartAlertStatus) ? thisChartName : ''
-      this.props.dispatch({
-        type: 'setContainerAlertState', 
-        payload: {
-          chartAlertStatuses: thisChartAlertStatus,
-          alertedCharts: thisChart
-        }
-      })      
-    }
-
-    //set Redux data to local 'filteredData' state value
-    if(this.state.filteredData !== data && this.state.filteredData !== []){
-      // console.log('setting local state filtered data')
-      this.setState({filteredData: data})
-    }
-
-    //if settings page filtered the data
-    if(this.props.storeVals.commodities && this.props.storeVals.commodities !== 'BOTH'){
-      
-      // console.log('there ARE redux store set commodities')
-      
-      if (this.state.filteredData.length < 1 || this.state.filteredData === data ){
-          let thisFilteredData = data.filter(this.filterByCommodity)
-          let thisColor = (thisFilteredData[0].commodity === 'YC') ? 'cadetblue' : 'green'
-          this.setState({
-            filteredData: thisFilteredData,
-            filteredCommodity: [{ name: thisFilteredData[0].commodity, color: thisColor }]
-          })
-      }
-    }
-    
-
-    //set container state to show alert on chart
-    this.setState({showAlert: thisChartAlertStatus})
-
-  }
-
-  filterByCommodity(item){
-    let chosenComm = this.props.storeVals.commodities;
-    if(item.commodity === chosenComm){
-      return item
-    }
-  }
-
   render() {
-
-    //if selected a truck, redirect
-    if(this.state.selectedTruck){
-      let text = `/singleTruck/${this.state.selectedTruck}`;
-     return(
-      <Redirect to={text} />
-      )
-    }
-    
+   
     //set svg dimensions
     const svgDimensions = {
       width: Math.max(this.props.parentWidth, 300),
-      height: 550
+      height: 120
     }
 
     //max value from data
@@ -231,8 +103,8 @@ class TruckTimeInFacility extends Component {
 
 
     const yScale = this.yScale
-      .domain([0, maxDataValue*1.1])
-      .range([svgDimensions.height - this.state.margins.bottom, this.state.margins.top])
+      .domain([0, 60])
+      .range([this.state.margins.top, svgDimensions.height - this.state.margins.bottom])
 
     const legendItems = this.state.filteredCommodity.map((dc, i) => {
 
@@ -249,7 +121,7 @@ class TruckTimeInFacility extends Component {
                 cy={circleY} 
                 x={circleX} 
                 y={circleY} 
-                r="15" 
+                r="5" 
                 strokeWidth="3" 
                 fill={dc.color}>
               </circle>
@@ -262,14 +134,6 @@ class TruckTimeInFacility extends Component {
             </g>
           )
     })
-
-    let toolTipStyle = {
-      'display': this.state.toolTipDisplay,
-      'left': (this.state.toolTipDisplay === 'inline-block') ? d3.event.pageX - 150+'px' : 0,
-      'top': (this.state.toolTipDisplay === 'inline-block') ? d3.event.pageY - 200+'px' : 0,
-    }
-
-    const tooltip = <div className="toolTip" style={toolTipStyle}>Test tooltip</div>
 
     const axisLabels = this.state.labels.map((each) => {
 
@@ -286,29 +150,18 @@ class TruckTimeInFacility extends Component {
     })
 
 
-    const alertImg = (this.state.showAlert === true) ? <image xlinkHref={alertImageImport} x="25" y="25" height="50px" width="50px"/> : null;
 
     let thisStyleObj = {
       'width': svgDimensions.width,
-      'height' : svgDimensions.height,
+      'height' : 115,
       // 'marginTop': '125px',
       'class': 'trucksPerHourSVG'
     }
-
-    //Alert line values
-    let lineVals = {
-      x1: 212,
-      x2: 653,
-      y: this.state.alertLevel
-    };
-
 
 
     return (
       <svg 
         style={thisStyleObj} >
-
-        {alertImg}
 
         <AxesAndMath
           scales={{ xScale, yScale }}
@@ -324,20 +177,10 @@ class TruckTimeInFacility extends Component {
           maxValue={maxDataValue}
           svgDimensions={svgDimensions}
           mousedOver={(e) => this.mousedOver(e)}
-          alertLevel={this.state.alertLevel}
           showBarDetails={this.redirectToBarPage}
         />
 
-        <AlertLine
-          scales={{ xScale, yScale }}
-          margins={this.state.margins}
-          lineVals={lineVals}
-          svgDimensions={svgDimensions}
-        />
-
         {axisLabels}
-
-        {tooltip}
 
         {legendItems}
 
@@ -349,4 +192,4 @@ class TruckTimeInFacility extends Component {
 
 const mapStateToProps = state => ({ storeVals: state })
 
-export default ResponsiveWrapper(connect(mapStateToProps)(TruckTimeInFacility))
+export default ResponsiveWrapper(connect(mapStateToProps)(TruckPitInChart))
