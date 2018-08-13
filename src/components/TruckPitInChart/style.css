@@ -9,3 +9,24 @@
 	font-size: .75em;
 	font-family: sans-serif;
 }
+
+.legendItem{
+	display: inline;
+}
+
+.legendP{
+	display: inline;
+}
+
+.legendSq{
+	width: 40px;
+	height: 10px;
+	display: inline-block;
+	margin: 0 8px;
+}
+
+.legendUL{
+	position: absolute;
+	top: 0;
+	right: 20px;
+}
