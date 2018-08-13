@@ -4,13 +4,27 @@ import './bars.css'
 
 export default function Bars(props) {
 
-    let colorScale = scaleOrdinal()
-      .range(['cadetblue', 'green']);
+    let colorArr = [];
 
-    const { scales, margins, data, svgDimensions } = props
+    const { scales, margins, data, svgDimensions, commods } = props
     const { xScale, yScale } = scales
     const { height } = svgDimensions
 
+    if (commods){
+      console.log('bar commods')
+      console.log(commods)
+
+      commods.map((c) => colorArr.push(c.color))
+
+      console.log('colorArr')
+      console.log(colorArr)
+      console.log('- - - - -')
+    }else{
+      colorArr = ['cadetblue', 'green']
+    }
+
+        let colorScale = scaleOrdinal()
+      .range(colorArr);
     //calculate bar border based on data above/below threshold
     const calcLessStroke = (d) => {
       if(d.thisHourTotalTrucks < props.alertLevel){
