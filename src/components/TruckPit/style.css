@@ -1,11 +1,7 @@
-.toolTip{
-	position: absolute;
-	display: none;
-	min-width: 80px;
-	height: auto;
-	background: none repeat scroll 0 0 rgba(255,255,255,.7);
-	padding: 14px;
-	text-align: center;
-	font-size: .75em;
-	font-family: sans-serif;
+.truckPit{
+	
+}
+
+section {
+	background-color: transparent;
 }
