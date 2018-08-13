@@ -196,11 +196,13 @@ class TrucksPerHourChart extends Component {
       return true;
     })
 
+    //get stacked range keys from state
     const stackRangeKeys = this.state.stackedElementKeys;
-    console.log('stackRangeKeys')
-    console.log(stackRangeKeys)
-    console.log('- - - -')
-    //max value from data
+    let arrayOfSingleStackSeries = stack.keys(stackRangeKeys)(data);
+    console.log('arrayOfSingleStackSeries')
+    console.log(arrayOfSingleStackSeries)
+    console.log('- - - - -')
+    //get max value from data
     const maxDataValue = Math.max(...data.map(d => d.totalOfThisBar))
 
     //update scales
