@@ -25,6 +25,12 @@ class TruckPitInChart extends Component {
           gWrapperClass : 'yAxisLabelG',
           transformation: 'rotate(-90)'
         },
+        {
+          type: 'bigY',
+          text : 'OUT',
+          textClass : 'bigYLabel',
+          gWrapperClass : 'bigYLabelG',
+        },
         // {
         //   type: 'chartTitle',
         //   text : 'Minutes In the Facility Per Truck',
@@ -33,7 +39,7 @@ class TruckPitInChart extends Component {
         //   transformation: ''
         // },
       ],
-      margins : { top: 5, right: 20, bottom: 20, left: 60 },
+      margins : { top: 10, right: 20, bottom: 20, left: 120 },
       filteredData: [],
       selectedTruck: '',
       filteredCommodity: [
@@ -49,6 +55,8 @@ class TruckPitInChart extends Component {
       return -(dims.height / 2.75)
     }else if(string.indexOf('c') > -1){
       return (dims.width / 2)
+    }else if(string.indexOf('b') > -1){
+      return 20
     }else{
       return ( dims.width / 2)
     }
@@ -57,9 +65,11 @@ class TruckPitInChart extends Component {
 
   calcYPos(string, dims){
     if(string.indexOf('y') > -1){
-      return 20
+      return 70
     }else if(string.indexOf('c') > -1){
       return (dims.height * .05)
+    }else if(string.indexOf('b') > -1){
+      return(dims.height / 3)
     }else{
       return dims.height - 25
     }
