@@ -1,6 +1,7 @@
 import React from 'react';
 import './chartWrapper.css'
 import TrucksPerHourChart from '../../components/TrucksPerHourChart';
+import TruckPit from '../../components/TruckPit';
 import TruckTimeInFacilityChart from '../../components/TruckTimeInFacilityChart';
 import ResizingSection from '../../components/ResizingSection';
 import Alert from '../../components/Alert';
@@ -48,13 +49,19 @@ export class Dashboard extends React.Component {
           value : <TrucksPerHourChart />,
           colSize:12,
           height: '80px'
-        }
+        },
+        {
+          // Title: `Facility Time Per Truck`,
+          value : <TruckPit />,
+          colSize:12,
+          height: '80px'
+        },
       ]
     }
   }
 
   render(){
-
+    console.log('in TILE BRANCH, dashbaord render')
     //converts the above sectionsArray into a 'sections' var for returning    
     const sections = this.state.sectionsArray.map((sec,ind) => {
       sec.calcHeight = this.state.sectionHeight;
@@ -75,6 +82,10 @@ export class Dashboard extends React.Component {
 
         <div className="row">
           {sections[5]}
+        </div>
+
+        <div className="row">
+          {sections[6]}
         </div>
 
         <div className="footerSpacer"></div>
