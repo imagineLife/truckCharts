@@ -44,8 +44,10 @@ export class SingleTruckDetails extends React.Component {
 
   render(){
 
-    console.log('rendering state')
+    console.log('SINGLE TRUCK rendering state')
     console.log(this.state)
+    console.log('SINGLE TRUCK rendering props')
+    console.log(this.props)
 
     if(this.state.submittedForm){
       return(
@@ -65,6 +67,10 @@ export class SingleTruckDetails extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({storeAlerts: state})
+const mapStateToProps = state => ({
+  truckID: state.selectedTruckID,
+  commodity : state.selectedTruckCommodity,
+  minutes: state.selectedMins
+})
 
 export default connect(mapStateToProps)(SingleTruckDetails);
