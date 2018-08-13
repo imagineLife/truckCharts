@@ -18,13 +18,6 @@ class TruckPitInChart extends Component {
     this.yScale = scaleLinear()
     this.state = {
       labels: [
-        { 
-          type:'x',
-          text : 'Truck ID',
-          textClass : 'xAxisLabelText',
-          gWrapperClass : 'xAxisLabelG',
-          transformation: ''
-        }, 
         {
           type: 'y',
           text : 'minutes',
@@ -40,7 +33,7 @@ class TruckPitInChart extends Component {
         //   transformation: ''
         // },
       ],
-      margins : { top: 75, right: 20, bottom: 100, left: 60 },
+      margins : { top: 5, right: 20, bottom: 20, left: 60 },
       filteredData: [],
       selectedTruck: '',
       filteredCommodity: [
@@ -104,7 +97,7 @@ class TruckPitInChart extends Component {
 
     const yScale = this.yScale
       .domain([0, 60])
-      .range([this.state.margins.top, svgDimensions.height - this.state.margins.bottom])
+      .range([(svgDimensions.height - this.state.margins.bottom), this.state.margins.top])
 
     const legendItems = this.state.filteredCommodity.map((dc, i) => {
 
@@ -181,9 +174,6 @@ class TruckPitInChart extends Component {
         />
 
         {axisLabels}
-
-        {legendItems}
-
 
       </svg>
     )
