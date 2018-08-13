@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { scaleBand, scaleLinear } from 'd3-scale'
+import * as d3 from 'd3-shape'
 
 import data from '../../data'
 import yesterdayData from '../../dataYesterday'
@@ -48,7 +49,9 @@ class TrucksPerHourChart extends Component {
       alertLevel: 11,
       todaysTruckData: data,
       historicalDataSource: yesterdayData,
-      showAlert: false
+      showAlert: false,
+      stackedElementKeys: '',
+      numberOfStackedPieces: 0
     }
 
     this.calculateAlertStatus = this.calculateAlertStatus.bind(this);
@@ -144,9 +147,18 @@ class TrucksPerHourChart extends Component {
       })      
     }
 
-
     this.setState({showAlert: thisChartAlertStatus})
 
+    //stack data updates
+          //set stacked element keys
+      if(!this.state.stackedElementKeys){
+        // this.setState({stackedElementKeys: Object.keys(d)})  
+        console.log('NO STACKED DATA IN STATE')
+        console.log('this is data')
+        data.forEach(d => {
+          this.setState({stackedElementKeys: Object.keys(d)})
+        })
+      }
   }
 
 
@@ -156,6 +168,8 @@ class TrucksPerHourChart extends Component {
 
   render() {
     console.log('RENDERING')
+
+    const stack = d3.stack();
     
     //set svg dimensions
     const svgDimensions = {
