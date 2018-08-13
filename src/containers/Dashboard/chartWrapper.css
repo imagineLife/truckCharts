@@ -9,3 +9,8 @@
 .dashboardMain > *{
 	color: white;
 }
+
+.truckPitTile{
+	background-color: rgb(0,169,190);
+	color: white;
+}
