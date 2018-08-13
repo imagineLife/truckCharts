@@ -86,7 +86,17 @@ class TruckTimeInFacility extends Component {
 
   redirectToBarPage(data){
     console.log('CLICKED! in TTIFC')
-    console.log(data.truckID)
+    console.log(data)
+    //dispatch to redux
+      this.props.dispatch({
+        type: 'setSingleTruckDetails', 
+        payload: {
+          truckID: data.truckID,
+          commodity: data.minutes,
+          minutes: data.commodity
+        }
+      })
+
     this.setState({
       selectedTruck: data.truckID
     })
