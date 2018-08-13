@@ -44,7 +44,7 @@ class TruckPit extends Component {
           <div className="cornerClicker">
             <img src={cornerClicker} onClick={this.updateViewNumber}/>
           </div>
-          <h2>Trucks Today:</h2>
+          <h2 className="truckChartH2">Trucks Today:</h2>
           <TruckPitInChart />
           <TruckPitOutChart />
         </div>
@@ -56,7 +56,7 @@ class TruckPit extends Component {
           <div className="cornerClicker">
             <img src={cornerClicker} onClick={this.updateViewNumber}/>
           </div>          
-          <h2>Trucks Today By Pit:</h2>
+          <h2 className="truckChartH2">Trucks Today By Pit:</h2>
           <TruckPitInChart />
           <TruckPitOutChart />
         </div>
