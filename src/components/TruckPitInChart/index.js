@@ -43,8 +43,10 @@ class TruckPitInChart extends Component {
       filteredData: [],
       selectedTruck: '',
       filteredCommodity: [
-        {name: 'YC', color: 'cadetblue'},
-        {name: 'SB', color: 'green'}
+        {name: 'YC', color: 'yellow'},
+        {name: 'YSB', color: 'green'},
+        {name: 'HRW', color: 'blueviolet'},
+        {name: 'Other', color: 'midnightblue'}
       ],
       toolTipDisplay: 'none'
     }
@@ -99,29 +101,15 @@ class TruckPitInChart extends Component {
     const legendItems = this.state.filteredCommodity.map((dc, i) => {
 
       let thisI = i+1;
-      let circleX = (thisI * 100); 
-      let circleY = svgDimensions.height - 35; 
-      let textX = (thisI * 100) + 20; 
-      let textY = svgDimensions.height - 35; 
+      let circleX = (thisI * 120); 
+      let circleY = 0; 
+      let textX = (thisI * 120) + 60; 
+      let textY = 0; 
         return(
-            <g className="legendItem" key={dc.name}>
-              <circle 
-                className="legendCircle" 
-                cx={circleX} 
-                cy={circleY} 
-                x={circleX} 
-                y={circleY} 
-                r="5" 
-                strokeWidth="3" 
-                fill={dc.color}>
-              </circle>
-              <text 
-                key={dc.name}
-                x={textX} 
-                y={textY + 5} 
-                className='legendItem' 
-                fill='white' >= {dc.name}</text>
-            </g>
+            <li className="legendItem" key={dc.name}>
+              <div className="legendSq" style={{backgroundColor: dc.color}}></div>
+              <p className="legendP">= {dc.name}</p>
+            </li>
           )
     })
 
@@ -150,28 +138,34 @@ class TruckPitInChart extends Component {
 
 
     return (
-      <svg 
-        style={thisStyleObj} >
+      <div className="truckPitWrapper">
+        <ul className="legendUL">
+          {legendItems}
+        </ul>
+        <svg 
+          style={thisStyleObj} >
 
-        <AxesAndMath
-          scales={{ xScale, yScale }}
-          margins={this.state.margins}
-          svgDimensions={svgDimensions}
-        />
-        
-        <Bars
-          scales={{ xScale, yScale }}
-          margins={this.state.margins}
-          data={this.state.filteredData}
-          commods={this.state.filteredCommodity}
-          maxValue={maxDataValue}
-          svgDimensions={svgDimensions}
-          showBarDetails={this.redirectToBarPage}
-        />
+          {legendItems}
+          <AxesAndMath
+            scales={{ xScale, yScale }}
+            margins={this.state.margins}
+            svgDimensions={svgDimensions}
+          />
+          
+          <Bars
+            scales={{ xScale, yScale }}
+            margins={this.state.margins}
+            data={this.state.filteredData}
+            commods={this.state.filteredCommodity}
+            maxValue={maxDataValue}
+            svgDimensions={svgDimensions}
+            showBarDetails={this.redirectToBarPage}
+          />
 
-        {axisLabels}
+          {axisLabels}
 
-      </svg>
+        </svg>
+      </div>
     )
   }
 }
