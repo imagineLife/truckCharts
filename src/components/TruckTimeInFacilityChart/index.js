@@ -153,14 +153,14 @@ class TruckTimeInFacility extends Component {
 
     //set Redux data to local 'filteredData' state value
     if(this.state.filteredData !== data && this.state.filteredData !== []){
-      console.log('setting local state filtered data')
+      // console.log('setting local state filtered data')
       this.setState({filteredData: data})
     }
 
     //if settings page filtered the data
     if(this.props.storeVals.commodities && this.props.storeVals.commodities !== 'BOTH'){
       
-      console.log('there ARE redux store set commodities')
+      // console.log('there ARE redux store set commodities')
       
       if (this.state.filteredData.length < 1 || this.state.filteredData === data ){
           let thisFilteredData = data.filter(this.filterByCommodity)
@@ -237,7 +237,7 @@ class TruckTimeInFacility extends Component {
                 x={textX} 
                 y={textY + 5} 
                 className='legendItem' 
-                fill='black' >= {dc.name}</text>
+                fill='white' >= {dc.name}</text>
             </g>
           )
     })
