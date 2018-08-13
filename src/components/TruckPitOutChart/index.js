@@ -18,19 +18,18 @@ class TruckPitInChart extends Component {
     this.yScale = scaleLinear()
     this.state = {
       labels: [
-        { 
-          type:'x',
-          text : 'Truck ID',
-          textClass : 'xAxisLabelText',
-          gWrapperClass : 'xAxisLabelG',
-          transformation: ''
-        }, 
         {
           type: 'y',
           text : 'minutes',
           textClass : 'yAxisLabelText',
           gWrapperClass : 'yAxisLabelG',
           transformation: 'rotate(-90)'
+        },
+        {
+          type: 'bigY',
+          text : 'IN',
+          textClass : 'bigYLabel',
+          gWrapperClass : 'bigYLabelG',
         },
         // {
         //   type: 'chartTitle',
@@ -40,7 +39,7 @@ class TruckPitInChart extends Component {
         //   transformation: ''
         // },
       ],
-      margins : { top: 75, right: 20, bottom: 100, left: 60 },
+      margins : { top: 10, right: 20, bottom: 20, left: 120 },
       filteredData: [],
       selectedTruck: '',
       filteredCommodity: [
@@ -56,6 +55,8 @@ class TruckPitInChart extends Component {
       return -(dims.height / 2.75)
     }else if(string.indexOf('c') > -1){
       return (dims.width / 2)
+    }else if(string.indexOf('b') > -1){
+      return 20
     }else{
       return ( dims.width / 2)
     }
@@ -64,9 +65,11 @@ class TruckPitInChart extends Component {
 
   calcYPos(string, dims){
     if(string.indexOf('y') > -1){
-      return 20
+      return 70
     }else if(string.indexOf('c') > -1){
       return (dims.height * .05)
+    }else if(string.indexOf('b') > -1){
+      return(dims.height / 3)
     }else{
       return dims.height - 25
     }
@@ -104,7 +107,7 @@ class TruckPitInChart extends Component {
 
     const yScale = this.yScale
       .domain([0, 60])
-      .range([this.state.margins.top, svgDimensions.height - this.state.margins.bottom])
+      .range([(svgDimensions.height - this.state.margins.bottom), this.state.margins.top])
 
     const legendItems = this.state.filteredCommodity.map((dc, i) => {
 
@@ -181,9 +184,6 @@ class TruckPitInChart extends Component {
         />
 
         {axisLabels}
-
-        {legendItems}
-
 
       </svg>
     )
