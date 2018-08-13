@@ -36,6 +36,14 @@ const chartAlertsReducer = function(state=initialState, action){
 		// })
 	}
 
+	if(action.type === 'setSingleTruckDetails'){
+		state = { ...state,
+			selectedTruckID: action.payload.truckID,
+			selectedTruckCommodity: action.payload.commodity,
+			selectedMins: action.payload.minutes
+		}
+	}
+
 	return state;
 }
 
