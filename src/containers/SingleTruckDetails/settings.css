@@ -6,12 +6,6 @@
 	text-align: center;
 }
 
-.settingsForm{
-	max-width: 475px;
-	margin: 0 auto;
-	text-align: left;
-}
-
 .settingsLabel{
 	width: 100%;
 	display: inline-block;
