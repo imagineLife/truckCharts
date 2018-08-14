@@ -29,7 +29,7 @@ const chartAlertsReducer = function(state=initialState, action){
 			alertedCharts: [ ...curAlertedCharts, action.payload.alertedCharts]
 		}
 
-		//same as 
+		//ABOVE is the same as 
 		// state = Object.assign({}, ...state, {
 		// 	containerAlertStatus: action.payload.chartAlertStatuses,
 		// 	alertedCharts: [ ...curAlertedCharts, action.payload.alertedCharts]

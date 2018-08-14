@@ -19,14 +19,24 @@
 }
 
 .legendSq{
-	width: 40px;
+	width: 10px;
 	height: 10px;
 	display: inline-block;
-	margin: 0 8px;
+	margin: 0 4px;
 }
 
 .legendUL{
 	position: absolute;
 	top: 0;
-	right: 20px;
+	right: 10px;
+}
+
+
+@media only screen and (min-width: 710px) {
+
+	.legendSq{
+		width: 40px;
+		height: 10px;
+		margin: 0 8px;
+	}
 }
